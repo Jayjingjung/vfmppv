@@ -73,7 +73,7 @@
           </v-list-item>
         </v-card>
 
-        <v-card class="mt-3 mb-3 mr-3 ml-3">
+        <!-- <v-card class="mt-3 mb-3 mr-3 ml-3">
           <v-list-item to="user" color="#F9944A">
             <v-list-item-icon>
               <v-icon size="34" style="color: #009f62">mdi-folder-account</v-icon>
@@ -82,7 +82,7 @@
               <span class="large-font">account</span>
             </v-list-item-content>
           </v-list-item>
-        </v-card>
+        </v-card> -->
 
 
 
@@ -117,7 +117,7 @@
 
 
       <!-- menu ຈັດການຂໍ້ມູນພື້ນຖານ -->
-      <v-menu style="height: 20%;" v-if="USER_ROLE && USER_ROLE === 'ADMIN'" offset-y>
+      <!-- <v-menu style="height: 20%;" v-if="USER_ROLE && USER_ROLE === 'ADMIN'" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="white" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
             <v-icon color="#fff" size="38">mdi-transit-connection-variant</v-icon>
@@ -126,12 +126,12 @@
           </v-btn>
         </template>
         <v-list>
-          <v-btn v-if="USER_ROLE !== 'USER'" color="white" to="create-expense-type" elevation="0" block><span
+          <v-btn v-if="USER_ROLE !== 'USER'" color="white" to="" elevation="0" block><span
               class="black--text">ເພີ່ມປະເພດລາຍຈ່າຍ</span><v-spacer></v-spacer></v-btn>
-          <v-btn v-if="USER_ROLE !== 'USER'" color="white" to="create-expense" elevation="0" block><span
+          <v-btn v-if="USER_ROLE !== 'USER'" color="white" to="" elevation="0" block><span
               class="black--text">ເພີ່ມລາຍຈ່າຍ</span><v-spacer></v-spacer></v-btn>
         </v-list>
-      </v-menu>
+      </v-menu> -->
       <!-- menu ຈັດການຂໍ້ມູນພື້ນຖານ -->
 
       <v-spacer />
@@ -148,7 +148,7 @@
     <div  >
       <v-main>
         <!-- Main content -->
-        <v-container>
+        <v-container style="width: 100%;">
           <Nuxt />
         </v-container>
       </v-main>

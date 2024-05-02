@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div class="centered-container">
       <v-btn @click="exportToExcel" color="primary">Export to Excel</v-btn>
     </div>
   </template>
@@ -40,4 +40,12 @@
     },
   };
   </script>
-  
+  <style scoped>
+  .centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    /* Ensures the container takes up the full viewport height */
+  }
+  </style>

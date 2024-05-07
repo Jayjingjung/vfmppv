@@ -21,7 +21,9 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-        <v-card class="mt-3 mb-3 mr-3 ml-3">
+      </v-list>
+        
+        <v-card style="margin-top: -90px;margin-bottom: 20px;" class=" mr-3 ml-3">
           <v-list-item to="create-invoice" color="#F9944A">
             <v-list-item-icon>
               <v-icon size="34" style="color: #06418e">mdi-database-marker</v-icon>
@@ -31,7 +33,6 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-      </v-list>
 
       <v-list dense style="height: 20%;" v-if="USER_ROLE && USER_ROLE === 'ADMIN'">
 
@@ -60,6 +61,7 @@
         <!-- Add more menu items here as needed -->
 
       </v-list>
+
       <v-list dense v-if="USER_ROLE && USER_ROLE === 'ADMIN'">
 
         <v-card class="mt-3 mb-3 mr-3 ml-3">
@@ -108,41 +110,17 @@
 
     <!-- menu ຄ້າງຊ້າຍ -->
     <!-- menu ພື້ນຖານລັງ -->
-    <v-app-bar fixed app color="#F9944A" height="55">
+    <!-- <v-app-bar fixed app color="#F9944A" height="55">
       <v-dialog v-model="loading_processing" persistent width="55">
         <v-card width="55" height="105" class="pt-3 pl-3">
           <v-progress-circular :width="3" color="primary" indeterminate></v-progress-circular>
         </v-card>
       </v-dialog>
-
-
-      <!-- menu ຈັດການຂໍ້ມູນພື້ນຖານ -->
-      <!-- <v-menu style="height: 20%;" v-if="USER_ROLE && USER_ROLE === 'ADMIN'" offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="white" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
-            <v-icon color="#fff" size="38">mdi-transit-connection-variant</v-icon>
-            ຈັດການຂໍ້ມູນພື້ນຖານ
-            <v-icon color="#fff" size="38">mdi-chevron-down-circle</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-btn v-if="USER_ROLE !== 'USER'" color="white" to="" elevation="0" block><span
-              class="black--text">ເພີ່ມປະເພດລາຍຈ່າຍ</span><v-spacer></v-spacer></v-btn>
-          <v-btn v-if="USER_ROLE !== 'USER'" color="white" to="" elevation="0" block><span
-              class="black--text">ເພີ່ມລາຍຈ່າຍ</span><v-spacer></v-spacer></v-btn>
-        </v-list>
-      </v-menu> -->
-      <!-- menu ຈັດການຂໍ້ມູນພື້ນຖານ -->
-
       <v-spacer />
-
-
       <v-btn rounded @click="onLogOut" text elevation="0">
         <v-icon color="white">mdi-logout</v-icon>
-
       </v-btn>
-
-    </v-app-bar>
+    </v-app-bar> -->
 
 
     <div  >

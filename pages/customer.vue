@@ -14,7 +14,7 @@
           <v-text-field v-model="villageCode" label="Village Code"></v-text-field>
           <v-select v-model="role" :items="['STAFF', 'ADMIN', 'TRETTER']" label="Role"></v-select>
 
-          <v-btn type="submit" color="primary">Submit</v-btn>
+          <v-btn @click="submitForm" type="submit" color="primary">Submit</v-btn>
         </v-list>
       </v-card>
     </div>
@@ -38,19 +38,21 @@
         <v-card-text>
           <v-data-table :headers="user_table_headers" :items="user_data_list" :search="search_user" item-key="userId">
             <template v-slot:item="{ item }">
-              <tr @click="selectUser(item)">
+              <tr>
                 <td>{{ item.userName }}</td>
                 <td>{{ item.phoneNumber }}</td>
                 <td>{{ item.role }}</td>
                 <td>{{ item.address.province }}</td>
                 <td>{{ item.address.district }}</td>
                 <td>{{ item.address.village }}</td>
+                <td>{{ item.email }}</td>
                 <td>
-                  <v-btn class="red" small @click="(row.item.item_id)">
+                  <v-btn class="red" small @click="delete_user(item._id)">
                     <v-icon color="white">mdi-delete</v-icon>
                     <span class="white--text">ລຶບ</span>
                   </v-btn>
                 </td>
+
 
               </tr>
             </template>
@@ -62,6 +64,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert2'; // Import SweetAlert
 export default {
   data() {
     return {
@@ -74,7 +77,10 @@ export default {
       province: "",
       villageCode: "",
       role: "",
+      email: "",
       TOKEN: "YOUR_ACTUAL_TOKEN_VALUE",
+      loading_processing: false,
+
       user_data_list: [],
       user_table_headers: [
         { text: 'ຊື່ຜູ້ໃຊ້ລະບົບ', value: 'name' },
@@ -83,8 +89,8 @@ export default {
         { text: 'ເເຂວງ', value: 'userid' },
         { text: 'ເມື່ອງ', value: 'district' },
         { text: 'ບ້ານ', value: '' },
+        { text: 'email', value: 'email' },
         { text: '', value: '' },
-
       ],
       selectedUser: {
         village: '',
@@ -93,6 +99,7 @@ export default {
         userName: '',
         role: '',
       },
+      search_user: '', // Define and initialize the search_user property
 
     };
   },
@@ -198,7 +205,56 @@ export default {
         console.error('Error submitting form:', error);
         // Optionally, you can display an error message or perform other actions based on the error.
       }
-    }
+    },
+    async delete_user(_id) {
+      try {
+        this.loading_processing = true;
+
+        // Get the Bearer token from local storage
+        const token = localStorage.getItem('TOKEN');
+
+        // Check if the token exists
+        if (!token) {
+          console.error('Bearer token is missing.');
+          return;
+        }
+
+        // Make DELETE request to your API endpoint
+        const response = await this.$axios.delete(`/user/delete/${_id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response?.status === true) {
+          this.loading_processing = false;
+          console.log('User deleted:', _id);
+          // Optionally, you can refresh the user list after deletion
+          window.location.reload();
+       
+        } else {
+          this.loading_processing = false;
+          swal.fire({
+            title: 'ແຈ້ງເຕືອນ',
+            text: response?.message,
+            icon: 'info',
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          });
+        }
+      } catch (error) {
+        this.loading_processing = false;
+        swal.fire({
+          title: 'ແຈ້ງເຕືອນ',
+          text: error,
+          icon: 'error',
+          allowOutsideClick: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      }
+    },
   }
 };
 </script>

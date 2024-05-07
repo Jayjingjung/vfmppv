@@ -57,7 +57,7 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: '/api-prod/v1/truck/',
-    baseURL: 'https://trackingapp-qupd.onrender.com/',
+    baseURL: 'https://octopus-app-n476x.ondigitalocean.app/',
   },
   server:{
     port:'3200'

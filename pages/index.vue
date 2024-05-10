@@ -56,8 +56,8 @@ export default {
             .then((response) => {
               console.log(response);  // Log the server response
               if (response?.status == true) {
-               
-                
+
+
                 const userData = response?.data;
                 localStorage.setItem('USER_ID', userData?._id);
                 localStorage.setItem('USER_NAME', userData?.userName);

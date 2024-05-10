@@ -5,7 +5,7 @@
       <!-- Content for the navigation drawer -->
       <div class="d-flex justify-center mt-5 mb-10" style="height: 15%;">
         <v-btn class="mx-2 mt-10" fab dark small color="primary" @click="onGoTo">
-          <img src="../assets/images/VFMPP.png" width="100" />
+          <img src="../assets/images/VFMPP.png" width="150" />
         </v-btn>
       </div>
 
@@ -75,8 +75,8 @@
           </v-list-item>
         </v-card>
 
-        <!-- <v-card class="mt-3 mb-3 mr-3 ml-3">
-          <v-list-item to="user" color="#F9944A">
+        <v-card class="mt-3 mb-3 mr-3 ml-3">
+          <v-list-item to="province" color="#F9944A">
             <v-list-item-icon>
               <v-icon size="34" style="color: #009f62">mdi-folder-account</v-icon>
             </v-list-item-icon>
@@ -84,7 +84,7 @@
               <span class="large-font">account</span>
             </v-list-item-content>
           </v-list-item>
-        </v-card> -->
+        </v-card>
 
 
 
@@ -110,7 +110,7 @@
 
     <!-- menu ຄ້າງຊ້າຍ -->
     <!-- menu ພື້ນຖານລັງ -->
-    <!-- <v-app-bar fixed app color="#F9944A" height="55">
+    <v-app-bar fixed app color="#F9944A" height="100">
       <v-dialog v-model="loading_processing" persistent width="55">
         <v-card width="55" height="105" class="pt-3 pl-3">
           <v-progress-circular :width="3" color="primary" indeterminate></v-progress-circular>
@@ -120,15 +120,19 @@
       <v-btn rounded @click="onLogOut" text elevation="0">
         <v-icon color="white">mdi-logout</v-icon>
       </v-btn>
-    </v-app-bar> -->
+    </v-app-bar>
 
 
-    <div  >
-      <v-main>
-        <!-- Main content -->
-        <v-container style="width: 100%;">
-          <Nuxt />
-        </v-container>
+    <div class="content  ml-10">
+      <v-main class="bg ml-10 pl-10  ml-1 d-flex justify-center align-vertical">
+        <div class="content ml-10">
+          <div class="ml-10">
+
+            <Nuxt />
+          </div>
+
+        </div>
+
       </v-main>
     </div>
 

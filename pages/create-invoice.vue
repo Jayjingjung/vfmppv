@@ -2,48 +2,59 @@
   <div>
 
     <v-container fluid fill-height>
-      <v-row align="center" justify="center">
-        <v-col cols="12" sm="16" md="16">
+      <v-row align="center">
+        <v-col>
           <v-card-text>
             <div style="width:100%;display:flex;justify-content:start" class="pt-4">
 
-              <!-- <div class="d-flex align-center">
-                <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
-                  :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field dense outlined v-model="formattedStartDate" required label="ວັນທີເລີ່ມຕົ້ນ"
-                      append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
-                  </template>
-<v-date-picker v-model="start_date" no-title scrollable @input="$refs.start_menu.save(start_date)">
-  <v-spacer></v-spacer>
-</v-date-picker>
-</v-menu>
-</div>
-<div class="d-flex align-center pl-2">
-  <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false" :return-value.sync="end_date"
-    transition="scale-transition" offset-y min-width="auto">
 
-    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field dense outlined v-model="formattedEndDate" required label="ວັນທີສຸດທ້າຍ"
-                      append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
-                  </template>
-    <v-date-picker v-model="end_date" no-title scrollable @input="$refs.end_menu.save(end_date)">
-      <v-spacer></v-spacer>
-    </v-date-picker>
-  </v-menu>
-</div> -->
-              <v-col>
-                <v-text-field label="ລະຫັດບ້ານ" dense outlined background-color="#f5f5f5"
-                  v-model="villageCode"></v-text-field>
-              </v-col>
-              <div class="ml-2 pt-1">
-                <v-btn color="#90A4AE" class="white--text" elevation="0" @click="() => { fetchDataFromApi(); }">
-                  <v-icon>mdi-magnify</v-icon> ຄົ້ນຫາ
-                </v-btn>
-
+              <div class="col-8">
+                <div class="d-flex align-center" style="width:100%">
+                  <div class="d-flex align-center">
+                    <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
+                      :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field dense outlined v-model="start_date" required label="ວັນທີເລີ່ມ"
+                          append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="start_date" no-title scrollable
+                        @input="$refs.start_menu.save(start_date)">
+                        <v-spacer></v-spacer>
+                      </v-date-picker>
+                    </v-menu>
+                  </div>
+                  <div class="d-flex align-center pl-2">
+                    <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
+                      :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field dense outlined v-model="end_date" required label="ວັນທີສຸດທ້າຍ"
+                          append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="end_date" no-title scrollable @input="$refs.end_menu.save(end_date)">
+                        <v-spacer></v-spacer>
+                      </v-date-picker>
+                    </v-menu>
+                  </div>
+                  <div>
+                    <v-text-field label="ລະຫັດບ້ານ" dense outlined background-color="#f5f5f5"
+                      v-model="villageCode"></v-text-field>
+                  </div>
+                  <div style="margin-top:-25px" class="ml-2">
+                    <v-btn color="#90A4AE" class="white--text" elevation="0"
+                      @click="() => { fetchDataFromApi(); }"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
+                  </div>
+                </div>
               </div>
             </div>
           </v-card-text>
+
+          <!-- Dropdown for provinceLaList -->
+          <!-- Your dropdown element -->
+          <v-select v-model="selectedProvinceLa" :items="provinceLaList" label="ເລືອກແຂວງ" outlined></v-select>
+
+
+          <!-- Dropdown for distructList -->
+
 
 
           <v-card class="card-shadow mb-6" rounded="lg" v-for="(item, index) in data" :key="item._id"
@@ -306,7 +317,11 @@ export default {
       start_menu: false,
       end_menu: false,
       loading_processing: false,
-
+      provinces: [],
+      selectedProvince: null,
+      provinceLaList: [],
+      selectedDistrictId: null, // Initialize selectedDistrictId
+      selectedProvinceLa: null,
       end_date: '',
       villageCode: '',
       start_date: '',
@@ -351,6 +366,14 @@ export default {
       },
     };
   },
+  watch: {
+    selectedProvinceLa(newValue, oldValue) {
+      // Check if the new value is different from the old value to avoid unnecessary calls
+      if (newValue !== oldValue) {
+        this.fetchDataFromApi(newValue);
+      }
+    }
+  },
   computed: {
     formattedStartDate() {
       if (!this.start_date) return ''; // Return empty string if date is not set
@@ -372,9 +395,11 @@ export default {
 
   async mounted() {
     await this.fetchDataFromApi();
+    await this.onGetprovin();
+    // this.selectedDistrictId = ''; // Set to an empty string as an example
   },
   methods: {
-    async fetchDataFromApi() {
+    async fetchDataFromApi(provinceLa) {
       try {
         const token = localStorage.getItem('TOKEN');
         if (!token) {
@@ -388,8 +413,11 @@ export default {
           },
         };
 
-        // Construct the URL with query parameters
-        const apiUrl = `https://trackingapp-qupd.onrender.com/parollingReport/gets?startDate=${this.start_date}&endDate=${this.end_date}&villageCode=${this.villageCode}`;
+        // Construct the URL with query parameters, including the selected provinceLa
+        const apiUrl = 
+        `https://trackingapp-qupd.onrender.com/parollingReport/gets?startDate=
+        ${this.start_date}&endDate=${this.end_date}
+        &villageCode=${this.villageCode}&province=${provinceLa}`;
 
         // Make the GET request with axios
         const response = await axios.get(apiUrl, config);
@@ -413,6 +441,8 @@ export default {
       }
     },
 
+
+
     showFullImage(imageUrl, species, hunting) {
       this.fullImageUrl = imageUrl;
       this.selectedSpecies = species;
@@ -426,6 +456,83 @@ export default {
       console.log('Performing action for ID:', id);
       // Add your action logic here
     },
+    async onGetprovin() {
+      try {
+        this.loading_processing = true;
+
+        const response = await this.$axios.$get('https://trackingapp-qupd.onrender.com/provinces');
+
+        if (response?.status === true) {
+          this.loading_processing = false;
+          console.log('user:', response.data);
+
+          // Extract provinceLa values from the response data and store in an array
+          this.provinceLaList = response.data.map(province => province.provinceLa);
+        } else {
+          this.loading_processing = false;
+          swal.fire({
+            title: 'ແຈ້ງເຕືອນ',
+            text: response?.message,
+            icon: 'info',
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          });
+        }
+      } catch (error) {
+        this.loading_processing = false;
+        swal.fire({
+          title: 'ແຈ້ງເຕືອນ',
+          text: error,
+          icon: 'error',
+          allowOutsideClick: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      }
+    },
+
+    // async onGetdistricts(_id) {
+    //   try {
+    //     this.loading_processing = true;
+
+    //     const response = await this.$axios.$get(`https://trackingapp-qupd.onrender.com/districts?provinceId=${_id}`);
+
+    //     if (response?.status === true) {
+    //       this.loading_processing = false;
+    //       console.log('user:', response.data);
+    //       this.distructList = response.data;
+
+    //       // Optionally, set the first district as the default selected value
+    //       if (this.distructList.length > 0) {
+    //         this.selectedDistrictId = this.distructList[0]._id;
+    //       }
+    //     } else {
+    //       this.loading_processing = false;
+    //       swal.fire({
+    //         title: 'ແຈ້ງເຕືອນ',
+    //         text: response?.message,
+    //         icon: 'info',
+    //         allowOutsideClick: false,
+    //         confirmButtonColor: '#3085d6',
+    //         confirmButtonText: 'OK',
+    //       });
+    //     }
+    //   } catch (error) {
+    //     this.loading_processing = false;
+    //     swal.fire({
+    //       title: 'ແຈ້ງເຕືອນ',
+    //       text: error,
+    //       icon: 'error',
+    //       allowOutsideClick: false,
+    //       confirmButtonColor: '#3085d6',
+    //       confirmButtonText: 'OK',
+    //     });
+    //   }
+    // },
+
+
+
   },
 };
 </script>

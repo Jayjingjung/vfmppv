@@ -1,6 +1,6 @@
 <template>
-  <div style="display: flex;">
-    <div class="centered-container">
+  <div style="display: flex;" class="mt-10 ml-10">
+    <div class="centered-container ">
       <v-card>
         <v-list class="mr-10 ml-10" @submit.prevent="submitForm">
           <!-- Your form fields here -->
@@ -46,6 +46,7 @@
                 <td>{{ item.address.district }}</td>
                 <td>{{ item.address.village }}</td>
                 <td>{{ item.email }}</td>
+                <td>{{ item.address.villageCode }}</td>
                 <td>
                   <v-btn class="red" small @click="delete_user(item._id)">
                     <v-icon color="white">mdi-delete</v-icon>
@@ -90,6 +91,7 @@ export default {
         { text: 'ເມື່ອງ', value: 'district' },
         { text: 'ບ້ານ', value: '' },
         { text: 'email', value: 'email' },
+        { text: 'villageCode', value: 'villageCode' },
         { text: '', value: '' },
       ],
       selectedUser: {

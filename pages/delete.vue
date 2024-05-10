@@ -34,8 +34,8 @@ export default {
     },
     async deleteAllUsers() {
       try {
-        // Replace 'https://trackingapp-qupd.onrender.com/user/deleteAll' with your actual API endpoint
-        const apiEndpoint = 'https://trackingapp-qupd.onrender.com/user/deleteAll';
+        // Replace 'https://octopus-app-n476x.ondigitalocean.app/user/deleteAll' with your actual API endpoint
+        const apiEndpoint = 'https://octopus-app-n476x.ondigitalocean.app/user/deleteAll';
 
         // Retrieve the token from local storage
         const storedToken = localStorage.getItem('TOKEN');

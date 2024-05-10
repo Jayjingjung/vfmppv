@@ -161,8 +161,8 @@ export default {
       }
     },
     async submitForm() {
-      // Replace 'https://trackingapp-qupd.onrender.com/user/create' with your actual API endpoint
-      const apiEndpoint = 'https://trackingapp-qupd.onrender.com/user/create';
+      // Replace 'https://octopus-app-n476x.ondigitalocean.app/user/create' with your actual API endpoint
+      const apiEndpoint = 'https://octopus-app-n476x.ondigitalocean.app/user/create';
 
       try {
         // Retrieve the token from local storage

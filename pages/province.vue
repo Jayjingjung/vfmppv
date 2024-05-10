@@ -213,7 +213,7 @@ export default {
         async save_district() {
             try {
                 this.loading_processing = true;
-                const apiEndpoint = 'https://trackingapp-qupd.onrender.com/district';
+                const apiEndpoint = 'https://octopus-app-n476x.ondigitalocean.app/district';
                 const districtData = {
                     provinceId: this.provinceId,
                     districtEn: this.districtEn,
@@ -239,7 +239,7 @@ export default {
         async save_village() {
             try {
                 this.loading_processing = true;
-                const apiEndpoint = 'https://trackingapp-qupd.onrender.com/village';
+                const apiEndpoint = 'https://octopus-app-n476x.ondigitalocean.app/village';
                 const districtData = {
                     provinceId:this.provinceId,
                     districtId:this.districtId,
@@ -268,8 +268,8 @@ export default {
             try {
                 this.loading_processing = true;
 
-                // Replace 'https://trackingapp-qupd.onrender.com/province' with your actual API endpoint
-                const apiEndpoint = 'https://trackingapp-qupd.onrender.com/province';
+                // Replace 'https://octopus-app-n476x.ondigitalocean.app/province' with your actual API endpoint
+                const apiEndpoint = 'https://octopus-app-n476x.ondigitalocean.app/province';
 
                 const userData = {
                     provinceEn: this.provinceEn,
@@ -298,7 +298,7 @@ export default {
             try {
                 this.loading_processing = true;
 
-                const response = await this.$axios.$get('https://trackingapp-qupd.onrender.com/provinces');
+                const response = await this.$axios.$get('https://octopus-app-n476x.ondigitalocean.app/provinces');
 
                 if (response?.status === true) {
                     this.loading_processing = false;
@@ -331,7 +331,7 @@ export default {
             try {
                 this.loading_processing = true;
 
-                const response = await this.$axios.$get(`https://trackingapp-qupd.onrender.com/districts?provinceId=${provinceId}`);
+                const response = await this.$axios.$get(`https://octopus-app-n476x.ondigitalocean.app/districts?provinceId=${provinceId}`);
 
                 if (response?.status === true) {
                     this.loading_processing = false;
@@ -364,7 +364,7 @@ export default {
             try {
                 this.loading_processing = true;
 
-                const response = await this.$axios.$get(`https://trackingapp-qupd.onrender.com/villages?districtId=${districtId}`);
+                const response = await this.$axios.$get(`https://octopus-app-n476x.ondigitalocean.app/villages?districtId=${districtId}`);
 
                 if (response?.status === true) {
                     this.loading_processing = false;

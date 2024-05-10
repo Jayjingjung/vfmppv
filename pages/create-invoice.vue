@@ -415,7 +415,7 @@ export default {
 
         // Construct the URL with query parameters, including the selected provinceLa
         const apiUrl = 
-        `https://trackingapp-qupd.onrender.com/parollingReport/gets?startDate=
+        `https://octopus-app-n476x.ondigitalocean.app/parollingReport/gets?startDate=
         ${this.start_date}&endDate=${this.end_date}
         &villageCode=${this.villageCode}&province=${provinceLa}`;
 
@@ -460,7 +460,7 @@ export default {
       try {
         this.loading_processing = true;
 
-        const response = await this.$axios.$get('https://trackingapp-qupd.onrender.com/provinces');
+        const response = await this.$axios.$get('https://octopus-app-n476x.ondigitalocean.app/provinces');
 
         if (response?.status === true) {
           this.loading_processing = false;
@@ -496,7 +496,7 @@ export default {
     //   try {
     //     this.loading_processing = true;
 
-    //     const response = await this.$axios.$get(`https://trackingapp-qupd.onrender.com/districts?provinceId=${_id}`);
+    //     const response = await this.$axios.$get(`https://octopus-app-n476x.ondigitalocean.app/districts?provinceId=${_id}`);
 
     //     if (response?.status === true) {
     //       this.loading_processing = false;

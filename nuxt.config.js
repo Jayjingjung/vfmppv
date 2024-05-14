@@ -8,8 +8,8 @@ export default {
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: 'VMFPP',
-    title: 'VMFPP',
+    titleTemplate: 'VFMPP',
+    title: 'VFMPP',
     htmlAttrs: {
       lang: 'en',
     },

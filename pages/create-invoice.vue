@@ -7,42 +7,60 @@
           <v-card-text>
             <div style="width:100%;display:flex;justify-content:start" class="pt-4">
 
-
               <div class="col-8">
                 <div class="d-flex align-center" style="width:100%">
-                  <div class="d-flex align-center">
-                    <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
-                      :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field dense outlined v-model="start_date" required label="ວັນທີເລີ່ມ"
-                          append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
-                      </template>
-                      <v-date-picker v-model="start_date" no-title scrollable
-                        @input="$refs.start_menu.save(start_date)">
-                        <v-spacer></v-spacer>
-                      </v-date-picker>
-                    </v-menu>
+
+
+                  <div style="display: flex;">
+                    <div style="width: 200px;margin-left: 5px;margin-right: 5px;">
+
+                      <v-select v-model="province" :items="user_data_list" item-text="provinceLa" item-value="_id"
+                        label="ເລືອກ ເເຂວງ" @change="onProvinceChange" outlined></v-select>
+                    </div>
+
+                    <div style="width: 200px;margin-left: 5px;margin-right: 5px;">
+                      <v-select v-if="user_data_districts.length" v-model="district" :items="user_data_districts"
+                        item-text="districtLa" item-value="_id" label="ເລືອກ ເມືອງ" @change="onDistrictChange"
+                        outlined></v-select>
+                    </div>
+
+                    <div style="width: 200px;margin-left: 5px;margin-right: 5px;">
+                      <v-select v-if="user_data_village.length" v-model="village" :items="user_data_village"
+                        item-text="villageLa" item-value="_id" label="ເລືອກ ບ້ານ" @change="onVillageChange"
+                        outlined></v-select>
+                    </div>
+
+                    <v-btn @click="handleFetchData" color="primary" outlined>
+                      Fetch Data
+                    </v-btn>
                   </div>
-                  <div class="d-flex align-center pl-2">
-                    <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
-                      :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field dense outlined v-model="end_date" required label="ວັນທີສຸດທ້າຍ"
-                          append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
-                      </template>
-                      <v-date-picker v-model="end_date" no-title scrollable @input="$refs.end_menu.save(end_date)">
-                        <v-spacer></v-spacer>
-                      </v-date-picker>
-                    </v-menu>
-                  </div>
-                  <div>
-                    <v-text-field label="ລະຫັດບ້ານ" dense outlined background-color="#f5f5f5"
-                      v-model="villageCode"></v-text-field>
-                  </div>
-                  <div style="margin-top:-25px" class="ml-2">
-                    <v-btn color="#90A4AE" class="white--text" elevation="0"
-                      @click="() => { fetchDataFromApi(); }"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
-                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex;">
+                <div style="width: 250px;" class="d-flex align-center">
+                  <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
+                    :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field dense outlined v-model="start_date" required label="ວັນທີເລີ່ມ"
+                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="start_date" no-title scrollable @input="$refs.start_menu.save(start_date)">
+                      <v-spacer></v-spacer>
+                    </v-date-picker>
+                  </v-menu>
+                </div>
+                <div style="width: 250px;" class="d-flex align-center">
+                  <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
+                    :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field dense outlined v-model="end_date" required label="ວັນທີສຸດທ້າຍ"
+                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="end_date" no-title scrollable @input="$refs.end_menu.save(end_date)">
+                      <v-spacer></v-spacer>
+                    </v-date-picker>
+                  </v-menu>
                 </div>
               </div>
             </div>
@@ -50,7 +68,9 @@
 
           <!-- Dropdown for provinceLaList -->
           <!-- Your dropdown element -->
-          <v-select v-model="selectedProvinceLa" :items="provinceLaList" label="ເລືອກແຂວງ" outlined></v-select>
+
+
+
 
 
           <!-- Dropdown for distructList -->
@@ -317,14 +337,29 @@ export default {
       start_menu: false,
       end_menu: false,
       loading_processing: false,
-      provinces: [],
+      villageLa: "",
+
+      user_data_village: [],
+
+      user_data_list: [],
+      data: [],
       selectedProvince: null,
-      provinceLaList: [],
+      village: "",
+      district: "",
+      province: "",
+      provinceLa: "",
+      districtLa: "",
       selectedDistrictId: null, // Initialize selectedDistrictId
       selectedProvinceLa: null,
+      selectedVillageLa: null,
       end_date: '',
+      districtLaList: [],
+      villageLaList: [],
       villageCode: '',
+      provinceLaList: [], // This will hold the list of provinces fetched from the API
+      user_data_districts: [],
       start_date: '',
+      province: null,
       selectedSpecies: null,
       selectedHunting: null,
       item: {}, // Define the 'item' object here
@@ -367,12 +402,7 @@ export default {
     };
   },
   watch: {
-    selectedProvinceLa(newValue, oldValue) {
-      // Check if the new value is different from the old value to avoid unnecessary calls
-      if (newValue !== oldValue) {
-        this.fetchDataFromApi(newValue);
-      }
-    }
+
   },
   computed: {
     formattedStartDate() {
@@ -394,54 +424,12 @@ export default {
   },
 
   async mounted() {
-    await this.fetchDataFromApi();
-    await this.onGetprovin();
+
+    this.onGetprovin();
+
     // this.selectedDistrictId = ''; // Set to an empty string as an example
   },
   methods: {
-    async fetchDataFromApi(provinceLa) {
-      try {
-        const token = localStorage.getItem('TOKEN');
-        if (!token) {
-          console.error('Bearer token is missing.');
-          return;
-        }
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        // Construct the URL with query parameters, including the selected provinceLa
-        const apiUrl = 
-        `https://octopus-app-n476x.ondigitalocean.app/parollingReport/gets?startDate=
-        ${this.start_date}&endDate=${this.end_date}
-        &villageCode=${this.villageCode}&province=${provinceLa}`;
-
-        // Make the GET request with axios
-        const response = await axios.get(apiUrl, config);
-
-        if (response.data.status === true) {
-          console.log(response.data.data);
-        } else {
-          Swal.fire({
-            icon: 'error',
-            text: response.data.message,
-          });
-        }
-
-        this.data = response.data.data;
-      } catch (error) {
-        Swal.fire({
-          icon: 'error',
-          text: error.message,
-        });
-        console.error(error);
-      }
-    },
-
-
 
     showFullImage(imageUrl, species, hunting) {
       this.fullImageUrl = imageUrl;
@@ -459,18 +447,13 @@ export default {
     async onGetprovin() {
       try {
         this.loading_processing = true;
-
         const response = await this.$axios.$get('https://octopus-app-n476x.ondigitalocean.app/provinces');
+        this.loading_processing = false;
 
         if (response?.status === true) {
-          this.loading_processing = false;
-          console.log('user:', response.data);
-
-          // Extract provinceLa values from the response data and store in an array
-          this.provinceLaList = response.data.map(province => province.provinceLa);
+          this.user_data_list = response.data;
         } else {
-          this.loading_processing = false;
-          swal.fire({
+          Swal.fire({
             title: 'ແຈ້ງເຕືອນ',
             text: response?.message,
             icon: 'info',
@@ -481,9 +464,9 @@ export default {
         }
       } catch (error) {
         this.loading_processing = false;
-        swal.fire({
+        Swal.fire({
           title: 'ແຈ້ງເຕືອນ',
-          text: error,
+          text: error.message,
           icon: 'error',
           allowOutsideClick: false,
           confirmButtonColor: '#3085d6',
@@ -491,48 +474,151 @@ export default {
         });
       }
     },
+    async onGetdistricts(provinceId) {
+      try {
+        this.loading_processing = true;
+        const response = await this.$axios.$get(`https://octopus-app-n476x.ondigitalocean.app/districts?provinceId=${provinceId}`);
+        this.loading_processing = false;
 
-    // async onGetdistricts(_id) {
-    //   try {
-    //     this.loading_processing = true;
+        if (response?.status === true) {
+          this.user_data_districts = response.data;
+        } else {
+          Swal.fire({
+            title: 'ແຈ້ງເຕືອນ',
+            text: response?.message,
+            icon: 'info',
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          });
+        }
+      } catch (error) {
+        this.loading_processing = false;
+        Swal.fire({
+          title: 'ແຈ້ງເຕືອນ',
+          text: error.message,
+          icon: 'error',
+          allowOutsideClick: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      }
+    },
+    async onGetvillage(districtId) {
+      try {
+        this.loading_processing = true;
+        const response = await this.$axios.$get(`https://octopus-app-n476x.ondigitalocean.app/villages?districtId=${districtId}`);
+        this.loading_processing = false;
 
-    //     const response = await this.$axios.$get(`https://octopus-app-n476x.ondigitalocean.app/districts?provinceId=${_id}`);
+        if (response?.status === true) {
+          this.user_data_village = response.data;
+        } else {
+          Swal.fire({
+            title: 'ແຈ້ງເຕືອນ',
+            text: response?.message,
+            icon: 'info',
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          });
+        }
+      } catch (error) {
+        this.loading_processing = false;
+        Swal.fire({
+          title: 'ແຈ້ງເຕືອນ',
+          text: error.message,
+          icon: 'error',
+          allowOutsideClick: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        });
+      }
+    },
+    async fetchDataFromApi(provinceLa, districtLa, villageLa) {
+      try {
+        const token = localStorage.getItem('TOKEN');
+        if (!token) {
+          console.error('Bearer token is missing.');
+          return;
+        }
 
-    //     if (response?.status === true) {
-    //       this.loading_processing = false;
-    //       console.log('user:', response.data);
-    //       this.distructList = response.data;
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
 
-    //       // Optionally, set the first district as the default selected value
-    //       if (this.distructList.length > 0) {
-    //         this.selectedDistrictId = this.distructList[0]._id;
-    //       }
-    //     } else {
-    //       this.loading_processing = false;
-    //       swal.fire({
-    //         title: 'ແຈ້ງເຕືອນ',
-    //         text: response?.message,
-    //         icon: 'info',
-    //         allowOutsideClick: false,
-    //         confirmButtonColor: '#3085d6',
-    //         confirmButtonText: 'OK',
-    //       });
-    //     }
-    //   } catch (error) {
-    //     this.loading_processing = false;
-    //     swal.fire({
-    //       title: 'ແຈ້ງເຕືອນ',
-    //       text: error,
-    //       icon: 'error',
-    //       allowOutsideClick: false,
-    //       confirmButtonColor: '#3085d6',
-    //       confirmButtonText: 'OK',
-    //     });
-    //   }
-    // },
+        // Construct the API URL with the available parameters
+        let apiUrl = `https://octopus-app-n476x.ondigitalocean.app/parollingReport/gets?startDate=${this.start_date}&endDate=${this.end_date}&villageCode=${this.villageCode}`;
+        if (provinceLa) apiUrl += `&province=${provinceLa}`;
+        if (districtLa) apiUrl += `&district=${districtLa}`;
+        if (villageLa) apiUrl += `&village=${villageLa}`;
 
+        const response = await axios.get(apiUrl, config);
 
-
+        if (response.data.status === true) {
+          console.log(response.data.data);
+          this.data = response.data.data;
+        } else {
+          Swal.fire({
+            icon: 'error',
+            text: response.data.message,
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          text: error.message,
+        });
+        console.error(error);
+      }
+    },
+    onProvinceChange() {
+      this.district = "";
+      this.village = "";
+      this.user_data_districts = [];
+      this.user_data_village = [];
+      if (this.province) {
+        this.onGetdistricts(this.province);
+        this.provinceLa = this.user_data_list.find(item => item._id === this.province).provinceLa;
+      }
+    },
+    onDistrictChange() {
+      this.village = "";
+      this.user_data_village = [];
+      if (this.district) {
+        this.onGetvillage(this.district);
+        this.districtLa = this.user_data_districts.find(item => item._id === this.district).districtLa;
+      }
+    },
+    onVillageChange() {
+      if (this.village) {
+        this.villageLa = this.user_data_village.find(item => item._id === this.village).villageLa;
+      }
+    },
+    handleFetchData() {
+      // Check for each combination of parameters and call fetchDataFromApi with the appropriate arguments
+      if (this.provinceLa && this.districtLa && this.villageLa) {
+        this.fetchDataFromApi(this.provinceLa, this.districtLa, this.villageLa);
+      } else if (this.provinceLa && this.districtLa) {
+        this.fetchDataFromApi(this.provinceLa, this.districtLa, null);
+      } else if (this.provinceLa && this.villageLa) {
+        this.fetchDataFromApi(this.provinceLa, null, this.villageLa);
+      } else if (this.districtLa && this.villageLa) {
+        this.fetchDataFromApi(null, this.districtLa, this.villageLa);
+      } else if (this.provinceLa) {
+        this.fetchDataFromApi(this.provinceLa, null, null);
+      } else if (this.districtLa) {
+        this.fetchDataFromApi(null, this.districtLa, null);
+      } else if (this.villageLa) {
+        this.fetchDataFromApi(null, null, this.villageLa);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          text: 'Please select at least one of province, district, or village before fetching data.',
+        });
+      }
+    }
   },
 };
 </script>
@@ -559,17 +645,4 @@ export default {
   border-radius: 8px;
 
 }
-
-/* .image-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.category-image {
-  max-height: 80px;
-  max-width: 80px;
-  cursor: pointer;
-} */
 </style>

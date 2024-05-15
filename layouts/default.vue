@@ -14,16 +14,16 @@
         <v-card class="mt-5 mb-3 mr-3 ml-3">
           <v-list-item to="homepage" color="#F9944A">
             <v-list-item-icon>
-              <v-icon size="34">mdi-home</v-icon>
+              <v-icon size="34" style="color: #06418e">mdi-database-marker</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <span class="large-font"> Home</span>
+              <span class="large-font"> Date</span>
             </v-list-item-content>
           </v-list-item>
         </v-card>
       </v-list>
         
-        <v-card style="margin-top: -90px;margin-bottom: 20px;" class=" mr-3 ml-3">
+        <!-- <v-card style="margin-top: -90px;margin-bottom: 20px;" class=" mr-3 ml-3">
           <v-list-item to="create-invoice" color="#F9944A">
             <v-list-item-icon>
               <v-icon size="34" style="color: #06418e">mdi-database-marker</v-icon>
@@ -32,7 +32,7 @@
               <span class="large-font">Date</span>
             </v-list-item-content>
           </v-list-item>
-        </v-card>
+        </v-card> -->
 
       <v-list dense style="height: 20%;" v-if="USER_ROLE && USER_ROLE === 'ADMIN'">
 

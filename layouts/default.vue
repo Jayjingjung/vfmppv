@@ -48,7 +48,7 @@
         </v-card>
 
         <v-card class="mt-3 mb-3 mr-3 ml-3">
-          <v-list-item to="create" color="#F9944A">
+          <v-list-item to="map.vue" color="#F9944A">
             <v-list-item-icon>
               <v-icon size="34" style="color: #009f62">mdi-folder-download</v-icon>
             </v-list-item-icon>

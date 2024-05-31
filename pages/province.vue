@@ -261,6 +261,7 @@ export default {
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'OK',
                 });
+                // this.onGetvillage()
             }
         },
 

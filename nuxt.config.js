@@ -2,14 +2,14 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   router: {
-    base: '/'
+    base: '/pages/homepage'
   },
   target: 'static',
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: 'VFMPP',
-    title: 'VFMPP',
+    titleTemplate: 'VMFPP',
+    title: 'VMFPP',
     htmlAttrs: {
       lang: 'en',
     },
@@ -57,11 +57,7 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: '/api-prod/v1/truck/',
-    
-    baseURL: 'https://octopus-app-n476x.ondigitalocean.app/',
-
-
-    // baseURL: 'https://trackingapp-qupd.onrender.com/',
+    baseURL: 'https://trackingapp-qupd.onrender.com/',
   },
   server:{
     port:'3200'

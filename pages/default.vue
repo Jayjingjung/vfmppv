@@ -10,7 +10,7 @@
       </div>
 
       <!-- Menu items -->
-      <v-list dense style="height: 10%;">
+      <v-list dense style="height: 20%;">
         <v-card class="mt-5 mb-3 mr-3 ml-3">
           <v-list-item to="homepage" color="#F9944A">
             <v-list-item-icon>
@@ -23,7 +23,7 @@
         </v-card>
       </v-list>
 
-      <v-list dense style="height: 10%;">
+      <v-list dense style="height: 20%;">
         <v-card class="mt-5 mb-3 mr-3 ml-3">
           <v-list-item to="information_village" color="#F9944A">
             <v-list-item-icon>
@@ -31,19 +31,6 @@
             </v-list-item-icon>
             <v-list-item-content>
               <span class="large-font"> Information_village</span>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </v-list>
-
-      <v-list dense style="height: 10%;">
-        <v-card class="mt-5 mb-3 mr-3 ml-3">
-          <v-list-item to="addgallery" color="#F9944A">
-            <v-list-item-icon>
-              <v-icon size="34" style="color: #06418e">mdi-folder-image</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <span class="large-font"> Image</span>
             </v-list-item-content>
           </v-list-item>
         </v-card>
@@ -145,36 +132,15 @@
 
 
 
-      <!-- <v-list-item to="province" color="#ffffff">
+      <v-list-item to="province" color="#ffffff">
         <v-list-item-icon>
           <v-icon size="34" style="color: #ffffff">mdi-newspaper</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <span style="color: #ffffff" class="large-font">News & Events</span>
         </v-list-item-content>
-      </v-list-item> -->
+      </v-list-item>
 
-      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
-            <v-list-item-icon>
-              <v-icon size="34" style="color: #ffffff">mdi-newspaper</v-icon>
-            </v-list-item-icon>
-            <!-- <v-icon color="#ffffff" size="18">mdi-hammer-wrench</v-icon> -->
-            News & Events
-            <v-icon color="#ffffff">mdi-chevron-down-circle</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-btn color="white" to="vfmmodels" elevation="0" block><span class="black--text">News &
-              Events</span><v-spacer></v-spacer></v-btn>
-
-          <v-btn color="white" to="gallery" elevation="0" block><span class="black--text">
-              Gallery photo </span><v-spacer></v-spacer>
-            <v-icon color="#38761d">mdi-folder-image</v-icon></v-btn>
-          <!-- Gas -->
-        </v-list>
-      </v-menu>
 
       <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -215,8 +181,8 @@
           </v-btn>
         </template>
         <v-list>
-          <v-btn color="white" to="Lpb" elevation="0" block><span class="black--text">Luangprabang
-              Province</span><v-spacer></v-spacer></v-btn>
+          <v-btn color="white" to="Lpb" elevation="0" block><span
+              class="black--text">Luangprabang Province</span><v-spacer></v-spacer></v-btn>
 
           <v-btn color="white" to="insert _gas" elevation="0" block><span
               class="black--text">Xaignabouli</span><v-spacer></v-spacer></v-btn>
@@ -234,14 +200,14 @@
           </v-btn>
         </template>
         <v-list>
-          <v-btn color="white" to="customer" elevation="0" block><span class="black--text">Forest and Land
-              Use</span><v-spacer></v-spacer>
-          </v-btn>
+          <v-btn color="white" to="customer" elevation="0" block><span
+              class="black--text">Forest and Land Use</span><v-spacer></v-spacer>
+            </v-btn>
 
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Area
-              XBL</span><v-spacer></v-spacer></v-btn>
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Area
-              LPB</span><v-spacer></v-spacer></v-btn>
+          <v-btn color="white" to="insert _gas" elevation="0" block><span
+              class="black--text">Area XBL</span><v-spacer></v-spacer></v-btn>
+              <v-btn color="white" to="insert _gas" elevation="0" block><span
+              class="black--text">Area LPB</span><v-spacer></v-spacer></v-btn>
 
           <!-- Gas -->
         </v-list>
@@ -264,19 +230,29 @@
           <v-icon size="34" style="color: #ffffff">mdi mdi-card-account-mail</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-content>
+        <v-list-item-content  >
           <span style="color: #ffffff" class="large-font">Contact Us</span>
         </v-list-item-content>
       </v-list-item>
 
 
-      <v-btn style="width: 20px;margin-right: 2px;" @click="">
-        <img src="../assets/images/Laos.png" width="50px" />
-      </v-btn>
+      <v-list-item to="province" color="#BA3742">
+        <v-list-item-icon>
+          <v-icon size="34" style="color: #BA3742">mdi-folder-account</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <span class="large-font">LAOS</span>
+        </v-list-item-content>
+      </v-list-item>
 
-      <v-btn  style="width: 20px;margin-left: 2px;" @click="">
-        <img src="../assets/images/English.png" width="50px" />
-      </v-btn>
+      <v-list-item to="province" color="#3742BA">
+        <v-list-item-icon>
+          <v-icon size="34" style="color: #3742BA">mdi-folder-account</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <span class="large-font">ENGLISH</span>
+        </v-list-item-content>
+      </v-list-item>
       <!-- <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">

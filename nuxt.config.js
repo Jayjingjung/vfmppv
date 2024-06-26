@@ -2,14 +2,14 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   router: {
-    base: '/pages/homepage'
+    base: '/'
   },
   target: 'static',
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: 'VMFPP',
-    title: 'VMFPP',
+    titleTemplate: 'VFMPP',
+    title: 'VFMPP',
     htmlAttrs: {
       lang: 'en',
     },
@@ -19,7 +19,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/VFMPP.png' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/VFMPweb.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -57,7 +57,11 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: '/api-prod/v1/truck/',
-    baseURL: 'https://trackingapp-qupd.onrender.com/',
+    
+    baseURL: 'https://octopus-app-n476x.ondigitalocean.app/',
+
+
+    // baseURL: 'https://trackingapp-qupd.onrender.com/',
   },
   server:{
     port:'3200'

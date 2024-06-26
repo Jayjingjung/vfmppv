@@ -65,7 +65,7 @@ export default {
                 localStorage.setItem('TOKEN', userData?.accessToken);
 
                 this.loadingLogin = false;
-                this.$router.push('/homepage');
+                this.$router.push('/home');
               } else {
                 this.loadingLogin = false;
                 swal.fire({

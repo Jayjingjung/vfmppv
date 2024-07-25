@@ -829,10 +829,10 @@
 						@click="handlePathClick('608073')" @mouseover="handleMouseOver('608073', 'ສັນກາງ Sankang  ')"
 						@mouseleave="handleMouseLeave" />
 
-					<path :class="['st1', { hovered: hoveredPath === '608082' }]" d="M383.57,347.91c-4.26-5.94,0.74-16.61,4.83-22.01c3.41-4.5,7.29-6.79,11.27-9.13c2.7-1.59,9.23-5.13,21.47-7.52
+					<path :class="['st1', { hovered: hoveredPath === '608089' }]" d="M383.57,347.91c-4.26-5.94,0.74-16.61,4.83-22.01c3.41-4.5,7.29-6.79,11.27-9.13c2.7-1.59,9.23-5.13,21.47-7.52
 	c14.09-2.75,24.2-4.72,27.91,0.27c3.59,4.83-0.7,13.63-3.49,19.33c-1.97,4.03-6.95,13.86-18.25,19.33
-	c-6.45,3.12-11.71,3.25-22.01,3.49C392.83,351.97,386.59,352.11,383.57,347.91z" @click="handlePathClick('608082')"
-						@mouseover="handleMouseOver('608082', 'ນ້ຳບໍ່ Nambor  ')" @mouseleave="handleMouseLeave" />
+	c-6.45,3.12-11.71,3.25-22.01,3.49C392.83,351.97,386.59,352.11,383.57,347.91z" @click="handlePathClick('608089')"
+						@mouseover="handleMouseOver('608089', 'ນ້ຳບໍ່ Nambor  ')" @mouseleave="handleMouseLeave" />
 
 
 
@@ -1081,7 +1081,7 @@
 						@mouseover="handleMouseOver('608003', 'ພັກບົງ Phakbong       ')"
 						@mouseleave="handleMouseLeave" />
 
-					<path :class="['st1', { hovered: hoveredPath === '608095' }]" d="M1396.01,454.74c6.38,3.95,16.76,1.35,23.35-3.22c5.82-4.04,8-9.49,12.35-20.4c1.84-4.62,1.99-6.29,1.34-7.78
+					<path :class="['st1', { hovered: hoveredPath === '608095 ' }]" d="M1396.01,454.74c6.38,3.95,16.76,1.35,23.35-3.22c5.82-4.04,8-9.49,12.35-20.4c1.84-4.62,1.99-6.29,1.34-7.78
 	c-2.12-4.9-12.25-6.91-19.59-3.76c-6.02,2.59-6.13,6.91-10.2,7.25c-7.19,0.59-16.6-12.1-13.96-19.33c1.74-4.75,7.74-4.58,8.59-9.39
 	c0.67-3.8-2.29-8.28-5.91-9.93c-3.75-1.71-6.7,0.32-11.81,1.07c-7.34,1.08-13.13-1.35-20.13-4.29c-8.57-3.6-11.52-7.64-22.55-17.45
 	c-19.5-17.35-31.94-24.02-30.06-29.26c1.28-3.55,7.84-2.83,9.13-7.52c0.88-3.21-1.18-7.23-4.03-9.13
@@ -1096,8 +1096,8 @@
 	c-0.72,3.75,2.56,7.29,3.76,8.59c3.12,3.37,6.79,4.54,9.39,5.37c4.86,1.55,8.98,1.39,9.93,1.34c3.41-0.18,4.51-0.9,10.47-1.34
 	c3.12-0.23,4.71-0.17,6.17,0.81c1.52,1.01,2.18,2.52,2.95,4.29c1.46,3.35,0.73,4.45,2.15,6.98c0.79,1.41,1.95,3.47,3.76,3.76
 	c2.75,0.43,3.84-3.71,8.86-5.9c0.52-0.23,3.72-1.58,7.52-1.07c3.28,0.44,5.99,2.62,11.27,6.98c3.03,2.5,3.46,3.13,8.86,7.78
-	C1394.04,453.14,1395.6,454.49,1396.01,454.74z" @click="handlePathClick('608095')"
-						@mouseover="handleMouseOver('608095', 'ນາງີ້ວ NaNgew       ')" @mouseleave="handleMouseLeave" />
+	C1394.04,453.14,1395.6,454.49,1396.01,454.74z" @click="handlePathClick('608095 ')"
+						@mouseover="handleMouseOver('608095 ', 'ນາງີ້ວ NaNgew       ')" @mouseleave="handleMouseLeave" />
 
 					<path :class="['st1', { hovered: hoveredPath === '608045' }]" d="M1446.74,366.7c-0.61,2.54-1.9,3.69-1.34,4.56c0.68,1.06,3.43,0.65,5.37,0c5.36-1.8,5.44-5.77,9.66-7.25
 	c1.71-0.6,1.97-0.04,10.2,1.34c4.45,0.75,7.08,1.04,12.35,1.61c8.73,0.95,10.12,0.62,11.27-0.27c2.57-1.97,3.19-6.07,2.68-9.13
@@ -1186,27 +1186,27 @@ export default {
 	},
 	methods: {
 		async handlePathClick(villageId) {
-      try {
-        const response = await fetch('YOUR_API_ENDPOINT', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ id: villageId })
-        });
+			try {
+				const response = await fetch('YOUR_API_ENDPOINT', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ id: villageId })
+				});
 
-        if (response.ok) {
-          this.$router.push({
-            name: 'show_information_village',
-            query: { village_id: villageId }
-          });
-        } else {
-          console.error('Error sending ID to API');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    },
+				if (response.ok) {
+					this.$router.push({
+						name: 'show_information_village',
+						query: { village_id: villageId }
+					});
+				} else {
+					console.error('Error sending ID to API');
+				}
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		},
 		handleMouseOver(pathId, text) {
 			this.hoveredPath = pathId;
 			this.hoverText = text;

@@ -1,38 +1,14 @@
 <template>
   <div style="display: flex;" class="mt-10 ml-10">
-    <div class="centered-container ">
-      <v-card>
-        <v-list class="mr-10 ml-10" @submit.prevent="submitForm">
-          <!-- Your form fields here -->
-          <v-text-field v-model="userName" label="Username"></v-text-field>
-          <v-text-field v-model="phoneNumber" label="Phone Number"></v-text-field>
-          <v-text-field v-model="password" label="Password" type="password"></v-text-field>
-          <v-text-field v-model="email" label="Email"></v-text-field>
-          <v-text-field v-model="village" label="Village"></v-text-field>
-          <v-text-field v-model="district" label="District"></v-text-field>
-          <v-text-field v-model="province" label="Province"></v-text-field>
-          <v-text-field v-model="villageCode" label="Village Code"></v-text-field>
-          <v-select v-model="role" :items="['STAFF', 'ADMIN', 'TRETTER']" label="Role"></v-select>
-
-          <v-btn @click="submitForm" type="submit" color="primary">Submit</v-btn>
-        </v-list>
-      </v-card>
-    </div>
+   
     <div style="margin-left: 10px;">
-      <v-dialog v-model="loading_processing" persistent width="55">
-        <v-card width="55" height="55" class="pt-3 pl-3">
-          <v-progress-circular :width="3" color="primary" indeterminate></v-progress-circular>
-        </v-card>
-      </v-dialog>
+
 
       <v-card class="card-shadow mb-6" rounded="lg">
         <v-card-title style="background-color:#F9944A">
           <div style="display:flex;justify-content:space-between;width:100%">
             <span class="white--text">ລາຍລະອຽດຂໍ້້ມູນຜູ້ໃຊ້ລະບົບ</span>
-            <v-btn color="#fff" @click="showModalAddUser = true" elevation="0" rounded>
-              <v-icon color="#E57373">mdi-plus</v-icon>
-              <span style="color: #F9944A;">ເພີ່ມຂໍ້ມູນ</span>
-            </v-btn>
+      
           </div>
         </v-card-title>
         <v-card-text>
@@ -207,6 +183,7 @@ export default {
         console.error('Error submitting form:', error);
         // Optionally, you can display an error message or perform other actions based on the error.
       }
+      this.onGetUserList()
     },
     async delete_user(_id) {
       try {
@@ -256,6 +233,7 @@ export default {
           confirmButtonText: 'OK',
         });
       }
+      this.onGetUserList()
     },
   }
 };

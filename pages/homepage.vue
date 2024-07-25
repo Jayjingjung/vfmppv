@@ -312,13 +312,23 @@
     </v-container>
 
 
-    <v-dialog v-model="dialogVisible" max-width="800" max-height="1200">
+    <!-- <v-dialog v-model="dialogVisible" max-width="30%" max-height="30%">
       <v-card>
-        <v-img :src="fullImageUrl" alt="Full Image" width="400" height="600"></v-img>
+        <v-img :src="fullImageUrl" alt="Full Image"><v-btn style="margin-top: 10px;margin-left: 10px;background-color: #09bcac;color: #f5f5f5;">
+            Dowload
+          </v-btn></v-img>
 
       </v-card>
-    </v-dialog>
-
+    </v-dialog> -->
+    <v-dialog v-model="dialogVisible" max-width="30%" max-height="30%">
+            <v-card>
+              <v-img :src="fullImageUrl" alt="Full Image">
+                <v-btn @click="downloadImage" style="margin-top: 10px; margin-left: 10px; background-color: #09bcac; color: #f5f5f5;">
+                  Download
+                </v-btn>
+              </v-img>
+            </v-card>
+          </v-dialog>
 
   </div>
 </template>
@@ -435,6 +445,12 @@ export default {
       this.selectedSpecies = species;
       this.selectedHunting = hunting;
       this.dialogVisible = true;
+    },
+    downloadImage() {
+      const link = document.createElement('a');
+      link.href = this.fullImageUrl;
+      link.download = 'image'; // You can modify the name as needed
+      link.click();
     },
     closeDialog() {
       this.dialogVisible = false;
@@ -643,5 +659,17 @@ export default {
   border: 1px solid gray;
   border-radius: 8px;
 
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }
 </style>

@@ -22,21 +22,35 @@
           </v-list-item>
         </v-card>
       </v-list>
-
-      <v-list dense style="height: 10%;">
+      <!-- <v-list dense style="height: 10%;">
         <v-card class="mt-5 mb-3 mr-3 ml-3">
-          <v-list-item to="information_village" color="#F9944A">
+          <v-list-item to="lome" color="#F9944A">
             <v-list-item-icon>
-              <v-icon size="34" style="color: #06418e">mdi-folder-information</v-icon>
+              <v-icon size="34" style="color: #06418e">mdi-database-marker</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <span class="large-font"> Information_village</span>
+              <span class="large-font"> lome</span>
             </v-list-item-content>
           </v-list-item>
         </v-card>
+      </v-list> -->
+      <v-list dense style="height: 10%;">
+        <v-list dense v-if="USER_ROLE && USER_ROLE === 'ADMIN'">
+
+          <v-card class="mt-5 mb-3 mr-3 ml-3">
+            <v-list-item to="information_village" color="#F9944A">
+              <v-list-item-icon>
+                <v-icon size="34" style="color: #06418e">mdi-folder-information</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <span class="large-font"> Information_village</span>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </v-list>
       </v-list>
 
-      <v-list dense style="height: 10%;">
+      <!-- <v-list dense style="height: 10%;">
         <v-card class="mt-5 mb-3 mr-3 ml-3">
           <v-list-item to="addgallery" color="#F9944A">
             <v-list-item-icon>
@@ -47,7 +61,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-      </v-list>
+      </v-list> -->
 
       <v-list dense v-if="USER_ROLE && USER_ROLE === 'ADMIN'">
         <v-divider></v-divider>
@@ -64,7 +78,7 @@
         </v-card>
 
         <v-card class="mt-3 mb-3 mr-3 ml-3">
-          <v-list-item to="XBLmap" color="#F9944A">
+          <v-list-item to="customer" color="#F9944A">
             <v-list-item-icon>
               <v-icon size="34" style="color: #009f62">mdi-folder-download</v-icon>
             </v-list-item-icon>
@@ -80,7 +94,9 @@
 
       <v-list dense v-if="USER_ROLE && USER_ROLE === 'ADMIN'">
         <v-card class="mt-3 mb-3 mr-3 ml-3">
-          <v-list-item to="customer" color="#F9944A">
+          <!-- <v-list-item to="customer" color="#F9944A"> -->
+          <v-list-item to="add_customer" color="#F9944A">
+
             <v-list-item-icon>
               <v-icon size="34" style="color: #009f62">mdi-account-plus</v-icon>
             </v-list-item-icon>
@@ -96,7 +112,7 @@
               <v-icon size="34" style="color: #009f62">mdi-folder-account</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <span class="large-font">account</span>
+              <span class="large-font">P_D_V</span>
             </v-list-item-content>
           </v-list-item>
         </v-card>
@@ -128,7 +144,7 @@
       </v-dialog>
 
       <div style="margin-right: 40px;">
-        <v-btn fab dark small color="#00bfff" @click="toggleDrawer">
+        <v-btn style="background-color: #c6243d;" fab dark small color="#00bfff" @click="toggleDrawer">
           <v-icon color="white">{{ drawerOpen ? 'mdi-chevron-left' : 'mdi-chevron-right' }}</v-icon>
         </v-btn>
       </div>
@@ -138,8 +154,11 @@
         <v-list-item-icon>
           <v-icon size="34" style="color: #ffffff">mdi-home</v-icon>
         </v-list-item-icon>
-        <v-list-item-content>
+        <v-list-item-content v-if="currentLanguage === 'en'">
           <span style="color: #ffffff" class="large-font">Home</span>
+        </v-list-item-content>
+        <v-list-item-content v-else>
+          <span style="color: #ffffff" class="large-font">ໜ້າຫຼັກ</span>
         </v-list-item-content>
       </v-list-item>
 
@@ -154,7 +173,7 @@
         </v-list-item-content>
       </v-list-item> -->
 
-      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
+      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE' && currentLanguage === 'en'" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
             <v-list-item-icon>
@@ -166,7 +185,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-btn color="white" to="vfmmodels" elevation="0" block><span class="black--text">News &
+          <v-btn color="white" to="new" elevation="0" block><span class="black--text">News &
               Events</span><v-spacer></v-spacer></v-btn>
 
           <v-btn color="white" to="gallery" elevation="0" block><span class="black--text">
@@ -176,37 +195,61 @@
         </v-list>
       </v-menu>
 
-      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
+      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE' && currentLanguage === 'la'" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
+            <v-list-item-icon>
+              <v-icon size="34" style="color: #ffffff">mdi-newspaper</v-icon>
+            </v-list-item-icon>
             <!-- <v-icon color="#ffffff" size="18">mdi-hammer-wrench</v-icon> -->
+            ຂ່າວ & ເຫດການ
+            <v-icon color="#ffffff">mdi-chevron-down-circle</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-btn color="white" to="new" elevation="0" block><span class="black--text">ຂ່າວ &
+              ເຫດການ</span><v-spacer></v-spacer></v-btn>
+
+          <v-btn color="white" to="gallery" elevation="0" block><span class="black--text">
+              ຄັງຮູບ </span><v-spacer></v-spacer>
+            <v-icon color="#38761d">mdi-folder-image</v-icon></v-btn>
+          <!-- Gas -->
+        </v-list>
+      </v-menu>
+      <!-- <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
+    
             VFM Models
             <v-icon color="#ffffff">mdi-chevron-down-circle</v-icon>
           </v-btn>
         </template>
         <v-list>
-          <v-btn color="white" to="vfmmodels" elevation="0" block><span class="black--text">Models
-              1</span><v-spacer></v-spacer></v-btn>
-
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Models
-              2</span><v-spacer></v-spacer></v-btn>
-
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Models
-              3</span><v-spacer></v-spacer></v-btn>
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Models
-              4</span><v-spacer></v-spacer></v-btn>
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Models
-              5</span><v-spacer></v-spacer></v-btn>
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Models
-              6</span><v-spacer></v-spacer></v-btn>
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Models
-              7</span><v-spacer></v-spacer></v-btn>
-          <!-- Gas -->
+          <v-btn color="white" to="vfmpmodels_get" elevation="0" block><span class="black--text">Models
+            vfmpmodels</span><v-spacer></v-spacer></v-btn>
         </v-list>
-      </v-menu>
+      </v-menu> -->
+
+      <v-list-item v-if="currentLanguage === 'en'" to="vfmpmodels_get" color="#ffffff">
+        <v-list-item-icon>
+          <v-icon size="34" style="color: #ffffff">mdi-file-document</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <span style="color: #ffffff" class="large-font">VFMP Models</span>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item v-else to="vfmpmodels_get" color="#ffffff">
+        <v-list-item-icon>
+          <v-icon size="34" style="color: #ffffff">mdi-file-document</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <span style="color: #ffffff" class="large-font">ຮູບເເບບປ່າໄມ້ບ້ານ</span>
+        </v-list-item-content>
+      </v-list-item>
 
 
-      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
+      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE' && currentLanguage === 'en'" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
             <v-icon color="#ffffff" size="18">mdi-database</v-icon>
@@ -215,35 +258,68 @@
           </v-btn>
         </template>
         <v-list>
-          <v-btn color="white" to="Lpb" elevation="0" block><span class="black--text">Luangprabang
+          <v-btn color="white" to="LPB" elevation="0" block><span class="black--text">Luangprabang
               Province</span><v-spacer></v-spacer></v-btn>
 
-          <v-btn color="white" to="insert _gas" elevation="0" block><span
+          <v-btn color="white" to="XBL" elevation="0" block><span
               class="black--text">Xaignabouli</span><v-spacer></v-spacer></v-btn>
 
           <!-- Gas -->
         </v-list>
       </v-menu>
 
-      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
+      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE' && currentLanguage === 'la'" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
-            <!-- <v-icon color="#ffffff" size="18">mdi-hammer-wrench</v-icon> -->
+            <v-icon color="#ffffff" size="18">mdi-database</v-icon>
+            ຄັງຂໍ້ມູນ
+            <v-icon color="#ffffff">mdi-chevron-down-circle</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-btn color="white" to="LPB" elevation="0" block><span class="black--text">
+              ຄັງຂໍ້ມູນ ຫຼວງພະບາງ</span><v-spacer></v-spacer></v-btn>
+
+          <v-btn color="white" to="XBL" elevation="0" block><span class="black--text">ຄັງຂໍ້ມູນ
+              ໄຊຍະບູລີ</span><v-spacer></v-spacer></v-btn>
+
+          <!-- Gas -->
+        </v-list>
+      </v-menu>
+
+      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE' && currentLanguage === 'en'" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
+            <v-list-item-icon>
+              <v-icon size="34" style="color: #ffffff">mdi-hammer-wrench</v-icon>
+            </v-list-item-icon>
             About VFMP
             <v-icon color="#ffffff">mdi-chevron-down-circle</v-icon>
           </v-btn>
         </template>
         <v-list>
-          <v-btn color="white" to="customer" elevation="0" block><span class="black--text">Forest and Land
-              Use</span><v-spacer></v-spacer>
+          <v-btn color="white" to="forest" elevation="0" block><span class="black--text">Forest and Land
+              Use</span></v-btn>
+          <v-btn color="white" to="XBL" elevation="0" block><span class="black--text">Area XBL</span></v-btn>
+          <v-btn color="white" to="LPB" elevation="0" block><span class="black--text">Area LPB</span></v-btn>
+        </v-list>
+      </v-menu>
+
+      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE' && currentLanguage === 'la'" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
+            <v-list-item-icon>
+              <v-icon size="34" style="color: #ffffff">mdi-hammer-wrench</v-icon>
+            </v-list-item-icon>
+            ກ່ຽວກັບໂຄງການ
+            <v-icon color="#ffffff">mdi-chevron-down-circle</v-icon>
           </v-btn>
-
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Area
-              XBL</span><v-spacer></v-spacer></v-btn>
-          <v-btn color="white" to="insert _gas" elevation="0" block><span class="black--text">Area
-              LPB</span><v-spacer></v-spacer></v-btn>
-
-          <!-- Gas -->
+        </template>
+        <v-list>
+          <v-btn color="white" to="forest" elevation="0" block><span
+              class="black--text">ການ​ນໍາ​ໃຊ້​ທີ່​ດິນ​ແລະ​ປ່າ​ໄມ້​</span></v-btn>
+          <v-btn color="white" to="XBL" elevation="0" block><span class="black--text"> ໄຊຍະບູລີ</span></v-btn>
+          <v-btn color="white" to="LPB" elevation="0" block><span class="black--text">ຫຼວງພະບາງ</span></v-btn>
         </v-list>
       </v-menu>
 
@@ -252,29 +328,33 @@
         <v-list-item-icon>
           <v-icon size="34" style="color: #ffffff">mdi mdi-link-box</v-icon>
         </v-list-item-icon>
-        <v-list-item-content>
+        <v-list-item-content v-if="currentLanguage === 'en'">
           <span style="color: #ffffff" class="large-font">Links</span>
         </v-list-item-content>
+
+        <v-list-item-content v-else>
+          <span style="color: #ffffff" class="large-font">ລິ້ງເຊື່ອມຕໍ່</span>
+        </v-list-item-content>
       </v-list-item>
-
-
-
-      <v-list-item to="loctin" color="#F9944A">
+      <v-list-item to="contact" color="#ffffff">
         <v-list-item-icon>
-          <v-icon size="34" style="color: #ffffff">mdi mdi-card-account-mail</v-icon>
+          <v-icon size="34" style="color: #ffffff">mdi-card-account-mail</v-icon>
         </v-list-item-icon>
-
-        <v-list-item-content>
+        <v-list-item-content v-if="currentLanguage === 'en'">
           <span style="color: #ffffff" class="large-font">Contact Us</span>
+        </v-list-item-content>
+        <v-list-item-content v-else>
+          <span style="color: #ffffff" class="large-font">ຕີດຕໍ່ເຮົາ</span>
         </v-list-item-content>
       </v-list-item>
 
 
-      <v-btn style="width: 20px;margin-right: 2px;" @click="">
+
+      <v-btn style="width: 20px;margin-right: 2px;" @click="changeToLao">
         <img src="../assets/images/Laos.png" width="50px" />
       </v-btn>
 
-      <v-btn  style="width: 20px;margin-left: 2px;" @click="">
+      <v-btn style="width: 20px;margin-left: 2px;" @click="changeToEnglish">
         <img src="../assets/images/English.png" width="50px" />
       </v-btn>
       <!-- <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
@@ -315,7 +395,6 @@
 </template>
 
 <script>
-import swal from 'sweetalert2'
 
 export default {
   data() {
@@ -329,10 +408,11 @@ export default {
       TOTAL_payStatus: '',
       TOTAL_totalOwe: '',
       TOTAL_notiDetails: '',
-      drawerOpen: true, // Initially set drawer to open
+      drawerOpen: false, // Initially set drawer to open
       drawerPermanent: false, // Set to false to make drawer collapsible
       drawerWidth: 200, // Width of the drawer
       loading_processing: false,
+      currentLanguage: 'en', // Add this line
     }
   },
   mounted() {
@@ -360,6 +440,12 @@ export default {
     },
     togglePermanent() {
       this.drawerPermanent = !this.drawerPermanent;
+    },
+    changeToLao() {
+      this.currentLanguage = 'la';
+    },
+    changeToEnglish() {
+      this.currentLanguage = 'en';
     },
   },
 }

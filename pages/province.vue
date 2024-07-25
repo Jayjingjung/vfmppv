@@ -26,13 +26,13 @@
                                     <td>{{ item.provinceEn }}</td>
                                 
                                     <td>
-                                        <v-btn class="red" small @click="add_districtLa(item._id)">
+                                        <v-btn class="green" small @click="add_districtLa(item._id)">
                                             <v-icon color="white">mdi-plus</v-icon>
                                             <span class="white--text">ເພີ່ມເມືອງ</span>
                                         </v-btn>
                                     </td>
                                     <td>
-                                        <v-btn class="red" small @click="onGetdistricts(item._id)">
+                                        <v-btn class="blue" small @click="onGetdistricts(item._id)">
                                             <v-icon color="white">mdi-plus</v-icon>
                                             <span class="white--text">ໂສເມືອງ</span>
                                         </v-btn>
@@ -63,14 +63,14 @@
                           
                  
                                     <td>
-                                        <v-btn class="red" small @click="add_village(item.provinceId, item._id)">
+                                        <v-btn class="green" small @click="add_village(item.provinceId, item._id)">
                                             <v-icon color="white">mdi-plus</v-icon>
                                             <span class="white--text">ເພີ່ມບ້ານ</span>
                                         </v-btn>
 
                                     </td>
                                     <td>
-                                        <v-btn class="red" small @click="onGetvillage(item._id)">
+                                        <v-btn class="blue" small @click="onGetvillage(item._id)">
                                             <v-icon color="white">mdi-plus</v-icon>
                                             <span class="white--text">ໂສບ້ານ</span>
                                         </v-btn>
@@ -117,7 +117,7 @@
                         <v-text-field v-model="villageCode" label="villageCode"></v-text-field>
                         <v-card-actions>
                             <v-btn style="font-size: 20px;" color="primary" @click="save_village">
-                                <v-icon>mdi-printer</v-icon>ບັນຖືກ
+                                <v-icon>mdi-printer</v-icon>ບັນຖືກs
                             </v-btn>
                         </v-card-actions>
                     </v-card-actions>
@@ -169,17 +169,19 @@ export default {
             user_table_headers: [
                 { text: 'ເເຂວງ', value: 'provinceLa' },
                 { text: 'ເມື່ອງ', value: 'provinceEn' },
-                { text: 'ບ້ານ', value: '' },
+                { text: 'ເພີ່ມເມື່ອງ', value: '' },
+                { text: 'Show', value: '' },
+
             ],
             user_table_headers_districtLa: [
-                { text: 'districtLa', value: 'districtLa' },
-                { text: 'districtEn', value: 'districtEn' },
-                { text: 'provinceId', value: 'provinceId' },
-                { text: '_Id', value: '_Id' },
+                { text: 'ເມື່ອງLa', value: 'districtLa' },
+                { text: 'DistrictEn', value: 'districtEn' },
+                { text: 'ເພີ່ມບ້ານ', value: 'provinceId' },
+                { text: 'Show', value: '_Id' },
             ],
             user_table_headers_village: [
-                { text: 'villageCode', value: 'villageCode' },
-                { text: 'villageLa', value: 'villageLa' },
+                { text: 'ບ້ານCode', value: 'villageCode' },
+                { text: 'ບ້ານLa', value: 'villageLa' },
                 { text: 'villageEn', value: 'villageEn' },
 
             ],
@@ -262,6 +264,8 @@ export default {
                     confirmButtonText: 'OK',
                 });
                 // this.onGetvillage()
+    //   window.location.reload();
+
             }
         },
 

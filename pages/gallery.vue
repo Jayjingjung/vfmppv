@@ -1,18 +1,33 @@
 <template>
-  <div>
-    <!-- <h2>Images:</h2> -->
+  <div class="container">
+    <div v-if="USER_ROLE && USER_ROLE === 'ADMIN'" class="fixed-panel">
+      <v-card dense style="width: 550px;">
+        <v-file-input style="margin-right: 10px;" v-model="image" label="Select an image" accept="image/*" outlined
+          @change="uploadImage"></v-file-input>
+        <v-btn style="width: 100px; background-color: green; color: white;" @click="savePhoto"
+          :disabled="!photo.length">Save</v-btn>
+      </v-card>
+      
+      <div v-if="imageUrl">
+        <h3>Image Preview:</h3>
+        <v-img :src="imageUrl" max-width="300px"></v-img>
+      </div>
+    </div>
 
-    <v-card  style="width: 1500px;margin-top: 50px;border-bottom:1px solid slategray;border-top:1px solid slategray;border-right:1px solid slategray;border-left:1px solid slategray">
+    <v-card class="gallery-card">
+      <v-card-title style="background-color:#009f62;margin-bottom: 10px;">
+      <p style="font-size: 25px;margin-left: 20px;margin-top: 10px;font-weight: 500;color: aliceblue;">ຮູບພາບ ລວມ</p>
+      
+      </v-card-title>
       <div class="gallery">
         <div v-for="(image, index) in imagesData" :key="index" class="gallery-item" @click="openPopup(index)">
-          <img :src="image.image" alt="Village Image" class="gallery-image">
-          <!-- <span class="image-text">Image {{ index + 1 }}</span> -->
+          <img :src="image.image" alt="Village Image" class="gallery-image" />
         </div>
       </div>
-
       <!-- Popup/Modal -->
       <div v-if="showPopup" class="popup">
-        <span style="height: 40px;width: 40px;" class="close-btn" @click="closePopup">&times;</span>
+        <span class="close-btn" @click="closePopup">&times;</span>
+
         <img :src="currentPhoto" :alt="'Photo ' + (currentIndex + 1)" class="popup-image" />
         <div class="navigation">
           <button @click="prevPhoto" :disabled="currentIndex === 0" class="nav-btn prev-btn">Previous</button>
@@ -21,20 +36,36 @@
         </div>
       </div>
     </v-card>
-    
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 export default {
   data() {
     return {
       imagesData: [],
+      USER_ROLE: '',
       showPopup: false,
       currentIndex: 0,
+      image: null,
+      imageUrl: '',
+      imageUploaded: false,
+      photo: '', // Assuming photo will hold the image URL or other related data
     };
+  },
+  mounted() {
+    this.USER_ID = localStorage.getItem('USER_ID');
+    this.USER_NAME = localStorage.getItem('USER_NAME');
+    this.USER_ROLE = localStorage.getItem('USER_ROLE');
+
+    if (!this.USER_ROLE) {
+      // Perform any necessary actions, such as redirecting to the login page
+    }
+
+    this.fetchData();
   },
   methods: {
     async fetchData() {
@@ -62,28 +93,129 @@ export default {
         this.currentIndex--;
       }
     },
+    async uploadImage() {
+      try {
+        if (!this.image) {
+          return; // No file selected, exit the method
+        }
+
+        // Create a FormData object
+        const formData = new FormData();
+        // Append the image file to the FormData object
+        formData.append('image', this.image);
+
+        // Send a POST request to the 'uploadFile' endpoint
+        const response = await axios.post(
+          'https://octopus-app-n476x.ondigitalocean.app/uploadFile',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
+            },
+          }
+        );
+
+        // Check if the response status is successful
+        if (response.data.status && response.data.message === 'SUCCESS' && response.data.data) {
+          // Save the uploaded image URL
+          this.imageUrl = response.data.data;
+          // Set imageUploaded to true
+          this.imageUploaded = true;
+          // Assign the uploaded image URL to photo
+          this.photo = this.imageUrl;
+        } else {
+          console.error('Error uploading image:', response.data.message);
+        }
+      } catch (error) {
+        // Handle errors
+        console.error('Error uploading image:', error);
+      }
+    },
+    async savePhoto() {
+      try {
+        const data = {
+          image: this.photo,
+        };
+
+        const response = await axios.post(
+          'https://octopus-app-n476x.ondigitalocean.app/image',
+          data,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        console.log('Response:', response.data);
+        Swal.fire({
+          title: 'Success',
+          text: 'Village details saved successfully',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        let errorMessage = 'An error occurred while saving the village details';
+        if (error.response && error.response.data && error.response.data.message) {
+          errorMessage = error.response.data.message;
+        }
+        Swal.fire({
+          title: 'Error',
+          text: errorMessage,
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      }
+      window.location.reload();
+    },
   },
   computed: {
     currentPhoto() {
       return this.imagesData[this.currentIndex]?.image || '';
     },
   },
-  mounted() {
-    this.fetchData();
-  },
 };
 </script>
 
-<style scoped>
+<style>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fixed-panel {
+  position: fixed;
+  top: 90px;
+  /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: white;
+  /* Optional: if you want a background */
+  padding: 10px;
+  /* Optional: for spacing around the content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Optional: for a shadow effect */
+}
+
+.gallery-card {
+  width: 1500px;
+  margin-top: 150px;
+  /* Adjust as needed */
+  border: 1px solid rgb(2, 4, 5);
+
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  /* Adjust the minmax values as needed */
   gap: 16px;
   max-width: 1300px;
   margin: 0 auto;
 }
-
 
 .gallery-item {
   flex: 1 1 calc(33.333% - 16px);
@@ -91,23 +223,15 @@ export default {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  /* Crop overflow for consistent aspect ratio */
 }
 
 .gallery-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-
-.gallery-image {
-  height: 300px;
-  width: 300px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 
 .popup {
   position: fixed;
@@ -133,26 +257,19 @@ export default {
   right: 5px;
   cursor: pointer;
   padding-bottom: 10px;
-  /* Adjust padding to include the border */
   font-size: 44px;
-  /* Increase font size for the close button */
   background-color: #d6d6d6;
   line-height: 1;
-  /* Ensure proper line height */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: #333;
-  /* Font color for the close button */
   text-align: center;
-  /* Center the text horizontally */
 }
 
 .close-btn:hover {
   border-color: #ec0505;
-  /* Change border color on hover */
   background-color: #ec0505;
   color: #d6d6d6;
-  /* Font color on hover */
 }
 
 .navigation {
@@ -180,5 +297,13 @@ export default {
 
 .prev-btn {
   margin-right: 10px;
+}
+
+.center-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 }
 </style>

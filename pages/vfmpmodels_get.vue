@@ -36,7 +36,7 @@
             style="min-width: 300px; margin-left: 2px; margin-right: 2px; background-color: green; color: aliceblue; font-family: 'Times New Roman', Times, serif;">
             about
           </v-btn>
-          <v-btn ref="btn2" value="2" @click="selectedCard = '2'" @mouseover="changeColor('red', $refs.btn2)"
+          <v-btn ref="btn2" value="2"@click="selectedCard = '2'" @mouseover="changeColor('red', $refs.btn2)"
             @mouseleave="changeColor('green', $refs.btn2)"
             style="min-width: 300px; margin-left: 2px; margin-right: 2px; background-color: green; color: aliceblue; font-family: 'Times New Roman', Times, serif;">
             new
@@ -47,8 +47,6 @@
             other
           </v-btn>
         </v-list>
-
-
 
         <div v-if="selectedCard === '2'" style="margin-top: 20px;">
           <v-card style="width: 99%; margin-top: 5px; margin-left: 7px; margin-right: 7px; height: auto;">
@@ -106,7 +104,7 @@ export default {
       errorMessage: '',
       showModalDetails: null, // To store detailed model information
       selectedCard: '1',
-      // pdfSrc: 'http://res.cloudinary.com/dbnjr4jnn/raw/upload/v1720775918/Model%202-1720775916771', // Default PDF URL
+      // pdfSrc: 'https://res.cloudinary.com/dbnjr4jnn/raw/upload/v1720775918/Model%202-1720775916771', // Default PDF URL
     };
   },
   methods: {
@@ -144,7 +142,7 @@ export default {
         if (response.data && response.data.status === true) {
           this.loading_processing = false;
           this.showModalDetails = response.data.data; // Set showModalDetails for display
-          this.pdfSrc = this.showModalDetails.file; // Update PDF URL based on fetched details
+          this.pdfSrc = this.showModalDetails.file.replace('http://', 'https://'); // Ensure URL uses HTTPS
         } else {
           this.loading_processing = false;
           this.errorMessage = response.data.message || 'Unknown error occurred';

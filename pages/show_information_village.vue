@@ -1260,7 +1260,11 @@
       <div>
         <span style="font-family: 'Times New Roman', Times, serif;">ABOUT</span>
       </div>
-      <pdf class="pdf-border"  style="width: 900px; " :src="villageData.about.file"></pdf>
+      <iframe
+                :src="`https://docs.google.com/gview?embedded=true&url=${villageData.about.file}`"
+                style="width: 1400px; height: 800px;" frameborder="0">
+              </iframe>
+      <!-- <pdf class="pdf-border"  style="width: 900px; " :src="villageData.about.file"></pdf> -->
     </v-card>
   </div>
 
@@ -1272,7 +1276,12 @@
       <div>
         <span style="font-family: 'Times New Roman', Times, serif;">LAND</span>
       </div>
-      <pdf class="pdf-border"  style="width: 1400px; " :src="villageData.Land.file"></pdf>
+
+      <iframe
+                :src="`https://docs.google.com/gview?embedded=true&url=${villageData.Land.file}`"
+                style="width: 1400px; height: 800px;" frameborder="0">
+              </iframe>
+      <!-- <pdf class="pdf-border"  style="width: 1400px; " :src="villageData.Land.file"></pdf> -->
     </v-card>
   </div>
 
@@ -1284,7 +1293,12 @@
       <div>
         <span style="font-family: 'Times New Roman', Times, serif;">CONVERTING AREA</span>
       </div>
-      <pdf class="pdf-border"  style="width: 1400px; " :src="villageData.convertingArea.file"></pdf>
+
+      <iframe
+                :src="`https://docs.google.com/gview?embedded=true&url=${villageData.convertingArea.file}`"
+                style="width: 1400px; height: 800px;" frameborder="0">
+              </iframe>
+      <!-- <pdf class="pdf-border"  style="width: 1400px; " :src="villageData.convertingArea.file"></pdf> -->
     </v-card>
   </div>
 

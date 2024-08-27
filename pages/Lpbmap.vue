@@ -1097,7 +1097,8 @@
 	c3.12-0.23,4.71-0.17,6.17,0.81c1.52,1.01,2.18,2.52,2.95,4.29c1.46,3.35,0.73,4.45,2.15,6.98c0.79,1.41,1.95,3.47,3.76,3.76
 	c2.75,0.43,3.84-3.71,8.86-5.9c0.52-0.23,3.72-1.58,7.52-1.07c3.28,0.44,5.99,2.62,11.27,6.98c3.03,2.5,3.46,3.13,8.86,7.78
 	C1394.04,453.14,1395.6,454.49,1396.01,454.74z" @click="handlePathClick('608095 ')"
-						@mouseover="handleMouseOver('608095 ', 'ນາງີ້ວ NaNgew       ')" @mouseleave="handleMouseLeave" />
+						@mouseover="handleMouseOver('608095 ', 'ນາງີ້ວ NaNgew       ')"
+						@mouseleave="handleMouseLeave" />
 
 					<path :class="['st1', { hovered: hoveredPath === '608045' }]" d="M1446.74,366.7c-0.61,2.54-1.9,3.69-1.34,4.56c0.68,1.06,3.43,0.65,5.37,0c5.36-1.8,5.44-5.77,9.66-7.25
 	c1.71-0.6,1.97-0.04,10.2,1.34c4.45,0.75,7.08,1.04,12.35,1.61c8.73,0.95,10.12,0.62,11.27-0.27c2.57-1.97,3.19-6.07,2.68-9.13
@@ -1185,27 +1186,30 @@ export default {
 		};
 	},
 	methods: {
-		async handlePathClick(villageId) {
-			try {
-				const response = await fetch('YOUR_API_ENDPOINT', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ id: villageId })
-				});
+		// async handlePathClick(villageId) {
+		// 	try {
+		// 		const response = await fetch('YOUR_API_ENDPOINT', {
+		// 			method: 'POST',
+		// 			headers: {
+		// 				'Content-Type': 'application/json'
+		// 			},
+		// 			body: JSON.stringify({ id: villageId })
+		// 		});
 
-				if (response.ok) {
-					this.$router.push({
-						name: 'show_information_village',
-						query: { village_id: villageId }
-					});
-				} else {
-					console.error('Error sending ID to API');
-				}
-			} catch (error) {
-				console.error('Error:', error);
-			}
+		// 		if (response.ok) {
+		// 			this.$router.push({
+		// 				name: 'show_information_village',
+		// 				query: { village_id: villageId }
+		// 			});
+		// 		} else {
+		// 			console.error('Error sending ID to API');
+		// 		}
+		// 	} catch (error) {
+		// 		console.error('Error:', error);
+		// 	}
+		// },
+		handlePathClick(villageId) {
+			this.$router.push({ path: '/show_information_village', query: { village_id: villageId } });
 		},
 		handleMouseOver(pathId, text) {
 			this.hoveredPath = pathId;

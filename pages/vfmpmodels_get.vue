@@ -51,7 +51,10 @@
               <span style="font-family: 'Times New Roman', Times, serif;">News</span>
             </v-card-title>
             <v-card-text>
-              <pdf class="pdf-border" style="width: 1400px;" :src="showModalDetails.news.file"></pdf>
+              <iframe
+                :src="`https://docs.google.com/gview?embedded=true&url=${showModalDetails.news.file}`"
+                style="width: 1400px; height: 800px;" frameborder="0">
+              </iframe>
               <v-card-title>{{ showModalDetails.news.description }}</v-card-title>
             </v-card-text>
           </v-card>
@@ -63,7 +66,10 @@
               <span style="font-family: 'Times New Roman', Times, serif;">About</span>
             </v-card-title>
             <v-card-text>
-              <pdf class="pdf-border" style="width: 1400px;" :src="showModalDetails.about.file"></pdf>
+              <iframe
+                :src="`https://docs.google.com/gview?embedded=true&url=${showModalDetails.about.file}`"
+                style="width: 1400px; height: 800px;" frameborder="0">
+              </iframe>
               <v-card-title>{{ showModalDetails.about.description }}</v-card-title>
             </v-card-text>
           </v-card>
@@ -72,10 +78,13 @@
         <div v-if="selectedCard === '3'" style="margin-top: 20px;">
           <v-card style="width: 99%; margin-top: 5px; margin-left: 7px; margin-right: 7px; height: auto;">
             <v-card-title>
-              <span style="font-family: 'Times New Roman', Times, serif;">other</span>
+              <span style="font-family: 'Times New Roman', Times, serif;">Other</span>
             </v-card-title>
             <v-card-text>
-              <pdf class="pdf-border" style="width: 1400px;" :src="showModalDetails.file"></pdf>
+              <iframe
+                :src="`https://docs.google.com/gview?embedded=true&url=${showModalDetails.file}`"
+                style="width: 1400px; height: 800px;" frameborder="0">
+              </iframe>
               <v-card-title>{{ showModalDetails.description }}</v-card-title>
             </v-card-text>
           </v-card>
@@ -87,12 +96,8 @@
 
 <script>
 import axios from 'axios';
-import pdf from 'vue-pdf';
 
 export default {
-  components: {
-    pdf,
-  },
   data() {
     return {
       models: [], // Array to hold API response data
@@ -138,7 +143,6 @@ export default {
         if (response.data && response.data.status === true) {
           this.loading_processing = false;
           this.showModalDetails = response.data.data; // Set showModalDetails for display
-          this.pdfSrc = this.showModalDetails.file.replace('http://', 'https://'); // Ensure URL uses HTTPS
         } else {
           this.loading_processing = false;
           this.errorMessage = response.data.message || 'Unknown error occurred';

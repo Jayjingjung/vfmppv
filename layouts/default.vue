@@ -1,7 +1,8 @@
 <template>
   <v-app dark>
     <!-- menu ຄ້າງຊ້າຍ -->
-    <v-navigation-drawer app v-model="drawerOpen" :permanent="drawerPermanent" :width="drawerWidth">
+    <v-navigation-drawer app v-model="drawerOpen" :permanent="drawerPermanent" :width="drawerWidth"
+      v-if="USER_ROLE || USER_ROLE === 'ADMIN'">
       <!-- Content for the navigation drawer -->
       <div class="d-flex justify-center mt-5 mb-10" style="height: 15%;">
         <v-btn class="mx-2 mt-10" fab dark small color="primary" @click="onGoTo">
@@ -143,7 +144,7 @@
         </v-card>
       </v-dialog>
 
-      <div style="margin-right: 40px;">
+      <div style="margin-right: 40px;" v-if="USER_ROLE || USER_ROLE === 'ADMIN'">
         <v-btn style="background-color: #c6243d;" fab dark small color="#00bfff" @click="toggleDrawer">
           <v-icon color="white">{{ drawerOpen ? 'mdi-chevron-left' : 'mdi-chevron-right' }}</v-icon>
         </v-btn>
@@ -357,6 +358,16 @@
       <v-btn style="width: 20px;margin-left: 2px;" @click="changeToEnglish">
         <img src="../assets/images/English.png" width="50px" />
       </v-btn>
+
+      <v-card v-if="!hasUserRole" style="margin-left: 5px;">
+        <v-list-item @click="onLogOut" color="#F9944A">
+          <v-list-item-content @click="onLogOut" color="#F9944A">
+            <v-icon size="24">mdi-logout</v-icon>
+            <span class="large-font">Logout</span>
+          </v-list-item-content>
+        </v-list-item>
+      </v-card>
+
       <!-- <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="#ffffff" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
@@ -415,6 +426,12 @@ export default {
       currentLanguage: 'en', // Add this line
     }
   },
+  computed: {
+    hasUserRole() {
+      const userRole = localStorage.getItem('USER_ROLE');
+      return userRole !== null && userRole !== undefined && userRole !== '';
+    },
+  },
   mounted() {
     this.USER_ID = localStorage.getItem('USER_ID')
     this.USER_NAME = localStorage.getItem('USER_NAME')
@@ -433,7 +450,7 @@ export default {
     },
     onLogOut() {
       localStorage.clear()
-      this.$router.push('/')
+      this.$router.push('/login')
     },
     toggleDrawer() {
       this.drawerOpen = !this.drawerOpen;

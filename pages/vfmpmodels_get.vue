@@ -14,9 +14,6 @@
         </div>
       </div>
 
-      <!-- Display PDF -->
-      <!-- <pdf class="pdf-border" style="width: 1400px;" :src="pdfSrc"></pdf> -->
-
       <!-- Show loading spinner or error message -->
       <v-progress-linear v-if="loading_processing" indeterminate color="primary"></v-progress-linear>
       <div v-else-if="errorMessage" class="error-message">{{ errorMessage }}</div>
@@ -27,7 +24,7 @@
         <v-card-title
           style="display: flex; justify-content: space-between;background-color:#009f62;width:1660px;color: aliceblue;height: 100px;">
           <div>
-            <span>{{ showModalDetails.name }}</span>
+            <span>{{ showModalDetails.name }}</span> v1
           </div>
         </v-card-title>
         <v-list style="display: flex;" v-model="selectedCard">
@@ -36,7 +33,7 @@
             style="min-width: 300px; margin-left: 2px; margin-right: 2px; background-color: green; color: aliceblue; font-family: 'Times New Roman', Times, serif;">
             about
           </v-btn>
-          <v-btn ref="btn2" value="2"@click="selectedCard = '2'" @mouseover="changeColor('red', $refs.btn2)"
+          <v-btn ref="btn2" value="2" @click="selectedCard = '2'" @mouseover="changeColor('red', $refs.btn2)"
             @mouseleave="changeColor('green', $refs.btn2)"
             style="min-width: 300px; margin-left: 2px; margin-right: 2px; background-color: green; color: aliceblue; font-family: 'Times New Roman', Times, serif;">
             new
@@ -104,7 +101,6 @@ export default {
       errorMessage: '',
       showModalDetails: null, // To store detailed model information
       selectedCard: '1',
-      // pdfSrc: 'https://res.cloudinary.com/dbnjr4jnn/raw/upload/v1720775918/Model%202-1720775916771', // Default PDF URL
     };
   },
   methods: {

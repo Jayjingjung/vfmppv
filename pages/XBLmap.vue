@@ -737,27 +737,30 @@ export default {
 		};
 	},
 	methods: {
-		async handlePathClick(villageId) {
-			try {
-				const response = await fetch('YOUR_API_ENDPOINT', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ id: villageId })
-				});
+		// async handlePathClick(villageId) {
+		// 	try {
+		// 		const response = await fetch('YOUR_API_ENDPOINT', {
+		// 			method: 'POST',
+		// 			headers: {
+		// 				'Content-Type': 'application/json'
+		// 			},
+		// 			body: JSON.stringify({ id: villageId })
+		// 		});
 
-				if (response.ok) {
-					this.$router.push({
-						name: 'show_information_village',
-						query: { village_id: villageId }
-					});
-				} else {
-					console.error('Error sending ID to API');
-				}
-			} catch (error) {
-				console.error('Error:', error);
-			}
+		// 		if (response.ok) {
+		// 			this.$router.push({
+		// 				name: 'show_information_village',
+		// 				query: { village_id: villageId }
+		// 			});
+		// 		} else {
+		// 			console.error('Error sending ID to API');
+		// 		}
+		// 	} catch (error) {
+		// 		console.error('Error:', error);
+		// 	}
+		// },
+		handlePathClick(villageId) {
+			this.$router.push({ path: '/show_information_village', query: { village_id: villageId } });
 		},
 		handleMouseOver(pathId, text) {
 			this.hoveredPath = pathId;

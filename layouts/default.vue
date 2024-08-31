@@ -11,7 +11,7 @@
       </div>
 
       <!-- Menu items -->
-      <v-list dense style="height: 10%;">
+      <v-list dense style="height: 5%;">
         <v-card class="mt-5 mb-3 mr-3 ml-3">
           <v-list-item to="homepage" color="#F9944A">
             <v-list-item-icon>
@@ -132,8 +132,11 @@
       </v-list>
 
       <v-divider></v-divider>
-
-      <v-card class="mt-5 mb-3 mr-3 ml-3">
+      <v-btn style="width: 200px;margin-left: 2px;height: 200px;" @click="goToLink">
+        <img src="../assets/images/VFMPPLAOAPP.png" width="200px" />
+      </v-btn>
+      <v-divider></v-divider>
+      <v-card class="mt-10 mb-3 mr-3 ml-3">
         <v-list-item @click="onLogOut" color="#F9944A">
           <v-list-item-icon>
             <v-icon size="34">mdi-logout</v-icon>
@@ -452,6 +455,9 @@ export default {
     }
   },
   methods: {
+    goToLink() {
+      window.location.href = 'https://play.google.com/store/apps/details?id=com.vfmpp_tracking.app';
+    },
     onPrint() {
       window.print()
     },

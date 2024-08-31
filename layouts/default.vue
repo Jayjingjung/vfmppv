@@ -78,7 +78,7 @@
           </v-list-item>
         </v-card>
 
-        <v-card class="mt-3 mb-3 mr-3 ml-3">
+        <!-- <v-card class="mt-3 mb-3 mr-3 ml-3">
           <v-list-item to="customer" color="#F9944A">
             <v-list-item-icon>
               <v-icon size="34" style="color: #009f62">mdi-folder-download</v-icon>
@@ -87,8 +87,18 @@
               <span class="large-font">Backup</span>
             </v-list-item-content>
           </v-list-item>
-        </v-card>
+        </v-card> -->
 
+        <v-card class="mt-3 mb-3 mr-3 ml-3">
+          <v-list-item to="customer" color="#F9944A">
+            <v-list-item-icon>
+              <v-icon size="34" style="color: #009f62">mdi-account-settings</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <span class="large-font">User</span>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card>
         <!-- Add more menu items here as needed -->
 
       </v-list>

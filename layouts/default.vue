@@ -132,7 +132,7 @@
       </v-list>
 
       <v-divider></v-divider>
-      <v-btn style="width: 200px;margin-left: 2px;height: 200px;" @click="goToLink">
+      <v-btn style="width: 210px;margin-left: 2px;height: 210px;" @click="goToLink">
         <img src="../assets/images/VFMPPLAOAPP.png" width="200px" />
       </v-btn>
       <v-divider></v-divider>
@@ -434,7 +434,7 @@ export default {
       TOTAL_notiDetails: '',
       drawerOpen: false, // Initially set drawer to open
       drawerPermanent: false, // Set to false to make drawer collapsible
-      drawerWidth: 200, // Width of the drawer
+      drawerWidth: 220, // Width of the drawer
       loading_processing: false,
       currentLanguage: 'en', // Add this line
     }

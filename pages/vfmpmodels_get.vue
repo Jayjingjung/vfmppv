@@ -24,7 +24,7 @@
         <v-card-title
           style="display: flex; justify-content: space-between;background-color:#009f62;width:1660px;color: aliceblue;height: 100px;">
           <div>
-            <span>{{ showModalDetails.name }}</span> v1
+            <span>{{ showModalDetails.name }}</span>
           </div>
         </v-card-title>
         <v-list style="display: flex;" v-model="selectedCard">

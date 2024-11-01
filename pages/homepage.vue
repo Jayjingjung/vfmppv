@@ -118,14 +118,14 @@
                     <div class="mr-3 ml-3 mb-3 mt-3">
                       <v-card
                         style=" border: 1px solid #ccc; border-radius: 5px;width: 250px;margin-bottom: 5px;margin-top: 5px;">
-                        <v-icon size="34" style="color: #ce2330">mdi-road-variant</v-icon>
-                        <div class=" mr-5 ml-5" style="font-size: 18px;">ຫົວໜ້າທີມ ລາດຕະເວນ {{
+                        <v-icon size="34" style="color: #ce2330">mdi-account</v-icon>
+                        <div class=" mr-5 ml-5" style="font-size: 18px;">ຫົວໜ້າທີມ ລາດຕະເວນ : {{
                           item.patrollingTeamLeader }}</div>
                       </v-card>
                       <!-- Display the endTime here -->
                       <v-card
                         style=" border: 1px solid #ccc; border-radius: 5px;width: 250px;margin-bottom: 5px;margin-top: 5px;">
-                        <v-icon size="34" style="color: #ce2330">mdi-account</v-icon>
+                        <v-icon size="34" style="color: #ce2330">mdi-road-variant</v-icon>
                         <div class=" mr-5 ml-5" style="font-size: 18px;">ຊື່ເສັ້ນທາງ: {{ item.trailName }}
                         </div>
                       </v-card>

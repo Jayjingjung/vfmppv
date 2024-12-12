@@ -1,6 +1,6 @@
 <template>
       <div class="app-container">
-        <v-card class="card-shadow mb-6 mt-1" rounded="lg" style="height: 2500px;">
+        <v-card class="card-shadow mb-6 " rounded="lg" style="height: 100%;">
             <v-card-title style="background-color:#008000;">
                 <div style="display:flex;justify-content:space-between;width:100%;">
                     <span style="font-family: 'Times New Roman', Times, serif;" class="white--text">VFMP
@@ -8,120 +8,150 @@
                 </div>
             </v-card-title>
             <!-- <v-spacer></v-spacer> -->
-            <div style="display: flex">
-                <v-card style="width: 300px;">cs</v-card>
-                <v-card style="width: 900px;">cssc</v-card>
-                <v-card style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <div>
-        <div v-if="villageData" style="display: flex; margin-top: 30px;">
-            <span style="margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;width: 130px;margin-right: 10px;margin-left: 15px;margin-right: 15px;margin-left: 15px;" class="back--text">VillageID</span>
-            <v-text-field 
-                style="font-family: 'Times New Roman', Times, serif; font-size: 20px;margin-right: 15px;"
-                class="mr-10 ml-1" 
-                label="VillageID" 
-                dense 
-                flat 
-                solo 
-                background-color="#f5f5f5"
-                v-if="villageData.villageCode" 
-                :value="villageData.villageCode" 
-                readonly
-            ></v-text-field>
-        </div>
-        
-        <div v-if="villageData && villageData.villageId" style="display: flex;">
-            <div>
-                <span style="display: block; margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px;width: 130px;margin-right: 10px;margin-left: 15px;" class="back--text">Village Name</span>
-            </div>
-            <div>
-                <v-text-field 
-                    style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
-                    class="mr-1 ml-1" 
-                    label="Village Name (En)" 
-                    dense 
-                    flat 
-                    solo 
-                    background-color="#f5f5f5" 
-                    :value="villageData.villageId.villageEn" 
-                    readonly
-                ></v-text-field>
-            </div>
-            <div>
-                <v-text-field 
-                    style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
-                    class="mr-10 ml-1" 
-                    label="Village Name (Lao)" 
-                    dense 
-                    flat 
-                    solo 
-                    background-color="#f5f5f5" 
-                    :value="villageData.villageId.villageLa" 
-                    readonly
-                ></v-text-field>
-            </div>
-        </div>
+            <div style="display: flex;">
+                <v-card>
+                    <div style="display: flex;flex-direction: column;width: 300px;">
+                        
+                    <v-btn ref="btn1" class="hovered" value="1" @click="selectedCard = '1'"
+                        @mouseover="changeColor('red', $refs.btn1)" @mouseleave="changeColor('green', $refs.btn1)"
+                        style="margin-bottom: 30px;margin-top: 30px;height: 50px;color: aliceblue;margin-left: 10px;margin-right: 10px;font-size: 13px; background-color: green; color: aliceblue;">
+                        About
+                    </v-btn>
+                    <v-btn ref="btn2" class="hovered" value="2" @click="selectedCard = '2'"
+                        @mouseover="changeColor('red', $refs.btn2)" @mouseleave="changeColor('green', $refs.btn2)"
+                        style="margin-bottom: 30px;margin-top: 30px;height: 50px;color: aliceblue;margin-left: 10px;margin-right: 10px;font-size: 13px; background-color: green; color: aliceblue;">
+                        Baseline Data
+                    </v-btn>
+                    <v-btn ref="btn3" class="hovered" value="3" @click="selectedCard = '3'"
+                        @mouseover="changeColor('red', $refs.btn3)" @mouseleave="changeColor('green', $refs.btn3)"
+                        style="margin-bottom: 30px;margin-top: 30px;height: 50px;color: aliceblue;margin-left: 10px;margin-right: 10px;font-size: 13px; background-color: green; color: aliceblue;">
+                        Forest land and other land
+                    </v-btn>
+                    <v-btn ref="btn4" class="hovered" value="4" @click="selectedCard = '4'"
+                        @mouseover="changeColor('red', $refs.btn4)" @mouseleave="changeColor('green', $refs.btn4)"
+                        style="margin-bottom: 30px;margin-top: 30px;height: 50px;color: aliceblue;margin-left: 10px;margin-right: 10px;font-size: 13px; background-color: green; color: aliceblue;">
+                        Covering Areas of VFMP
+                    </v-btn>
+                  
+                    </div>
+                </v-card>
+              
+                <div v-if="selectedCard === '1'">  
+                    <!-- Display about, Land, and convertingArea data in a horizontal table -->
 
-        <div v-if="villageData" style="display: flex;">
-            <span style="margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;margin-right: 15px;margin-left: 15px;" class="back--text">X-coordinate</span>
-            <v-text-field 
-                style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
-                class="mr-1 ml-1" 
-                label="X-coordinate" 
-                dense 
-                flat 
-                solo 
-                background-color="#f5f5f5" 
-                v-if="villageData.lat" 
-                :value="villageData.lat" 
-                readonly
-            ></v-text-field>
-        </div>
+                    <v-card class="card-center" v-if="villageData && villageData.about && villageData.about.file"
+                        style="text-align: center; width: 850px; margin-top: 10px; margin-left: 7px; margin-right: 7px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <div>
+                            <span style="font-family: 'Times New Roman', Times, serif;">ABOUT</span>
+                        </div>
+                        <iframe :src="`https://docs.google.com/gview?embedded=true&url=${villageData.about.file}`"
+                            style="width: 650px; height: 700px;" frameborder="0">
+                        </iframe>
+                        <!-- <pdf class="pdf-border"  style="width: 900px; " :src="villageData.about.file"></pdf> -->
+                    </v-card>
+                </div>
+                <div v-if="selectedCard === '2'">  
+                    <!-- Display about, Land, and convertingArea data in a horizontal table -->
+                    <v-card class="card-center" v-if="villageData && villageData.about && villageData.about.file"
+                        style="text-align: center; width: 850px; margin-top: 10px; margin-left: 7px; margin-right: 7px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <div>
+                            <span style="font-family: 'Times New Roman', Times, serif;">LAND</span>
+                        </div>
 
-        <div v-if="villageData" style="display: flex;">
-            <span style="margin-top: 8px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;margin-right: 15px;margin-left: 15px;" class="back--text">Y-coordinate</span>
-            <v-text-field 
-                style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
-                class="mr-1 ml-1" 
-                label="Y-coordinate" 
-                dense 
-                flat 
-                solo 
-                background-color="#f5f5f5" 
-                v-if="villageData.long" 
-                :value="villageData.long" 
-                readonly
-            ></v-text-field>
-        </div>
-    </div>
+                        <iframe :src="`https://docs.google.com/gview?embedded=true&url=${villageData.Land.file}`"
+                            style="width: 650px; height: 700px;" frameborder="0">
+                        </iframe>
+                        <!-- <pdf class="pdf-border"  style="width: 1400px; " :src="villageData.Land.file"></pdf> -->
+                    </v-card>
+                </div>
 
-    <div>
-      <div
-        v-if="villageData"
-        class="image-container"
-        style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px;"
-      >
-        <!-- Add a click handler to show the modal -->
-        <img
-          :src="villageData.image"
-          alt="Village Image"
-          class="village-image"
-          style="cursor: pointer; max-width: 100%; border-radius: 2px;"
-          @click="openImageModal"
-        />
-      </div>
-    </div>
+                <div v-if="selectedCard === '3'">  
+                    <!-- Display about, Land, and convertingArea data in a horizontal table -->
+                    <v-card class="card-center"v-if="villageData && villageData.about && villageData.about.file"
+                        style="text-align: center; width: 850px; margin-top: 10px; margin-left: 7px; margin-right: 7px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <div>
+                            <span style="font-family: 'Times New Roman', Times, serif;">CONVERTING AREA</span>
+                        </div>
 
-    <v-dialog v-model="showImageModal" max-width="100%">
-      <v-card>
-        <v-card-text style="display: flex; justify-content: center; align-items: center;">
-          <img :src="villageData.image" alt="Enlarged Village Image" style="max-width: 100%; max-height: 100%;" />
-        </v-card-text>
-        <!-- <v-card-actions style="justify-content: center;">
+                        <iframe
+                            :src="`https://docs.google.com/gview?embedded=true&url=${villageData.convertingArea.file}`"
+                            style="width: 650px; height: 700px;" frameborder="0">
+                        </iframe>
+                        <!-- <pdf class="pdf-border"  style="width: 1400px; " :src="villageData.convertingArea.file"></pdf> -->
+                    </v-card>
+                </div>
+                <v-card style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 800px;">
+                    <div>
+                        <div v-if="villageData" style="display: flex; margin-top: 30px;">
+                            <span
+                                style="margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;width: 130px;margin-right: 10px;margin-left: 15px;margin-right: 15px;margin-left: 15px;"
+                                class="back--text">VillageID</span>
+                            <v-text-field
+                                style="font-family: 'Times New Roman', Times, serif; font-size: 20px;margin-right: 15px;"
+                                class="mr-10 ml-1" label="VillageID" dense flat solo background-color="#f5f5f5"
+                                v-if="villageData.villageCode" :value="villageData.villageCode" readonly></v-text-field>
+                        </div>
+
+                        <div v-if="villageData && villageData.villageId" style="display: flex;">
+                            <div>
+                                <span
+                                    style="display: block; margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px;width: 130px;margin-right: 5px;margin-left: 15px;"
+                                    class="back--text">Village Name</span>
+                            </div>
+                            <div>
+                                <v-text-field style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
+                                    class="mr-1 ml-1" label="Village Name (En)" dense flat solo
+                                    background-color="#f5f5f5" :value="villageData.villageId.villageEn"
+                                    readonly></v-text-field>
+                            </div>
+                            <div>
+                                <v-text-field style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
+                                    class="mr-10 ml-1" label="Village Name (Lao)" dense flat solo
+                                    background-color="#f5f5f5" :value="villageData.villageId.villageLa"
+                                    readonly></v-text-field>
+                            </div>
+                        </div>
+
+                        <div v-if="villageData" style="display: flex;">
+                            <span
+                                style="margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;margin-right: 15px;margin-left: 15px;"
+                                class="back--text">X-coordinate</span>
+                            <v-text-field style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
+                                class="mr-1 ml-1" label="X-coordinate" dense flat solo background-color="#f5f5f5"
+                                v-if="villageData.lat" :value="villageData.lat" readonly></v-text-field>
+                        </div>
+
+                        <div v-if="villageData" style="display: flex;">
+                            <span
+                                style="margin-top: 8px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;margin-right: 15px;margin-left: 15px;"
+                                class="back--text">Y-coordinate</span>
+                            <v-text-field style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
+                                class="mr-1 ml-1" label="Y-coordinate" dense flat solo background-color="#f5f5f5"
+                                v-if="villageData.long" :value="villageData.long" readonly></v-text-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div v-if="villageData" class="image-container"
+                            style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px;">
+                            <!-- Add a click handler to show the modal -->
+                            <img :src="villageData.image" alt="Village Image" class="village-image"
+                                style="cursor: pointer; max-width: 100%; border-radius: 2px;" @click="openImageModal" />
+                        </div>
+                    </div>
+
+                    <v-dialog v-model="showImageModal" max-width="100%">
+                        <v-card>
+                            <v-card-text style="display: flex; justify-content: center; align-items: center;">
+                                <img :src="villageData.image" alt="Enlarged Village Image"
+                                    style="max-width: 100%; max-height: 100%;" />
+                            </v-card-text>
+                            <!-- <v-card-actions style="justify-content: center;">
           <v-btn color="red" text @click="showImageModal = false">Close</v-btn>
         </v-card-actions> -->
-      </v-card>
-    </v-dialog>
-</v-card>
+                        </v-card>
+                    </v-dialog>
+                </v-card>
 
             </div>
             <!-- <div
@@ -217,20 +247,20 @@
                 </v-card>
             </div> -->
             <div>
-                <div style="text-align: center; margin-top: 10px;">
+                <!-- <div style="text-align: center; margin-top: 10px;">
                     <v-btn ref="btn1" class="hovered" value="1" @click="selectedCard = '1'"
                         @mouseover="changeColor('red', $refs.btn1)" @mouseleave="changeColor('green', $refs.btn1)"
                         style="margin-left: 2px; margin-right: 2px; background-color: green; color: aliceblue;font-family: 'Times New Roman', Times, serif;font-size: 25px;">
                         Baseline Data
                     </v-btn>
-                </div>
+                </div> -->
 
                 <!-- Display the PX Data -->
                 <div
                     style="display: flex; overflow-x: auto; width: 100%; margin-left: 10px;margin-top: 30px;margin-bottom: 30px;">
                     <v-card>
-                        <div v-if="selectedCard === '1'" style="margin-top: 20px;">
-
+                        <div  style="margin-top: 20px;">
+                            <!-- v-if="selectedCard === '1'" -->
                             <div v-if="villagePX">
                             
                             <table>
@@ -1271,80 +1301,11 @@
                     </v-card>
                 </div>
             </div> -->
-            <div v-if="villageData && villageData.about && villageData.about.file">
-    <!-- Display about, Land, and convertingArea data in a horizontal table -->
-    <v-card
-      class="card-center"
-      style="text-align: center; width: 100%; margin-top: 10px; margin-left: 7px; margin-right: 7px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <div>
-        <span style="font-family: 'Times New Roman', Times, serif;">ABOUT</span>
-      </div>
-      <iframe
-                :src="`https://docs.google.com/gview?embedded=true&url=${villageData.about.file}`"
-                style="width: 1400px; height: 800px;" frameborder="0">
-              </iframe>
-      <!-- <pdf class="pdf-border"  style="width: 900px; " :src="villageData.about.file"></pdf> -->
-    </v-card>
-  </div>
+           
 
-  <div v-if="villageData && villageData.about && villageData.about.file">
-    <!-- Display about, Land, and convertingArea data in a horizontal table -->
-    <v-card
-      class="card-center"
-      style="text-align: center; width: 100%; margin-top: 10px; margin-left: 7px; margin-right: 7px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <div>
-        <span style="font-family: 'Times New Roman', Times, serif;">LAND</span>
-      </div>
+           
 
-      <iframe
-                :src="`https://docs.google.com/gview?embedded=true&url=${villageData.Land.file}`"
-                style="width: 1400px; height: 800px;" frameborder="0">
-              </iframe>
-      <!-- <pdf class="pdf-border"  style="width: 1400px; " :src="villageData.Land.file"></pdf> -->
-    </v-card>
-  </div>
-
-  <div v-if="villageData && villageData.about && villageData.about.file">
-    <!-- Display about, Land, and convertingArea data in a horizontal table -->
-    <v-card
-      class="card-center"
-      style="text-align: center; width: 100%; margin-top: 10px; margin-left: 7px; margin-right: 7px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <div>
-        <span style="font-family: 'Times New Roman', Times, serif;">CONVERTING AREA</span>
-      </div>
-
-      <iframe
-                :src="`https://docs.google.com/gview?embedded=true&url=${villageData.convertingArea.file}`"
-                style="width: 1400px; height: 800px;" frameborder="0">
-              </iframe>
-      <!-- <pdf class="pdf-border"  style="width: 1400px; " :src="villageData.convertingArea.file"></pdf> -->
-    </v-card>
-  </div>
-
-          
-            <!-- <v-card style="width: 40%;height: 800px;">
-                    <v-list style="display: flex; margin-left: 8px;" v-model="selectedCardPDF">
-                        <v-btn ref="btn25" class="hovered" value="1" @click="selectedCardPDF = '1'"
-                            @mouseover="changeColorPDF('red', $refs.btn25)"
-                            @mouseleave="changeColorPDF('chocolate', $refs.btn25)"
-                            style="margin-left: 2px; margin-right: 2px; background-color: chocolate; color: aliceblue;font-family: 'Times New Roman', Times, serif;">
-                            ABOUT
-                        </v-btn>
-                        <v-btn ref="btn26" class="hovered" value="2" @click="selectedCardPDF = '2'"
-                            @mouseover="changeColorPDF('red', $refs.btn26)"
-                            @mouseleave="changeColorPDF('chocolate', $refs.btn26)"
-                            style="margin-left: 2px; margin-right: 2px; background-color: chocolate; color: aliceblue;font-family: 'Times New Roman', Times, serif;">
-                            Land
-                        </v-btn>
-                        <v-btn ref="btn27" class="hovered" value="3" @click="selectedCardPDF = '3'"
-                            @mouseover="changeColorPDF('red', $refs.btn27)"
-                            @mouseleave="changeColorPDF('chocolate', $refs.btn27)"
-                            style="margin-left: 2px; margin-right: 2px; background-color: chocolate; color: aliceblue;font-family: 'Times New Roman', Times, serif;">
-                            Converting Area
-                        </v-btn>
-                    </v-list>
-                </v-card> -->
-
+         
 
         </v-card>
 
@@ -1490,7 +1451,7 @@ export default {
 }
 .app-container {
   font-family: Arial, sans-serif;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 20px;
 }

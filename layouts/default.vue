@@ -178,14 +178,7 @@
 
 
 
-      <!-- <v-list-item to="province" color="#ffffff">
-        <v-list-item-icon>
-          <v-icon size="34" style="color: #ffffff">mdi-newspaper</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <span style="color: #ffffff" class="large-font">News & Events</span>
-        </v-list-item-content>
-      </v-list-item> -->
+ 
 
       <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE' && currentLanguage === 'en'" offset-y>
         <template v-slot:activator="{ on, attrs }">

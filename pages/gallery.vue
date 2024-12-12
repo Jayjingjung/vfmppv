@@ -1,13 +1,22 @@
 <template>
   <div class="container">
-    <div v-if="USER_ROLE && USER_ROLE === 'ADMIN'" class="fixed-panel">
+    <div v-if="showFixedPanel && USER_ROLE && USER_ROLE === 'ADMIN'" class="fixed-panel">
       <v-card dense style="width: 550px;">
-        <v-file-input style="margin-right: 10px;" v-model="image" label="Select an image" accept="image/*" outlined
-          @change="uploadImage"></v-file-input>
-        <v-btn style="width: 100px; background-color: green; color: white;" @click="savePhoto"
-          :disabled="!photo.length">Save</v-btn>
+        <v-file-input 
+          style="margin-right: 10px;" 
+          v-model="image" 
+          label="Select an image" 
+          accept="image/*" 
+          outlined
+          @change="uploadImage"
+        ></v-file-input>
+        <v-btn 
+          style="width: 100px; background-color: green; color: white;" 
+          @click="savePhoto"
+          :disabled="!photo.length"
+        >Save</v-btn>
       </v-card>
-      
+
       <div v-if="imageUrl">
         <h3>Image Preview:</h3>
         <v-img :src="imageUrl" max-width="300px"></v-img>
@@ -16,8 +25,14 @@
 
     <v-card class="gallery-card">
       <v-card-title style="background-color:#009f62;margin-bottom: 10px;">
-      <p style="font-size: 25px;margin-left: 20px;margin-top: 10px;font-weight: 500;color: aliceblue;">ຮູບພາບ ລວມ</p>
-      
+        <p style="font-size: 25px;margin-left: 20px;margin-top: 10px;font-weight: 500;color: aliceblue;">ຮູບພາບ ລວม</p>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-btn 
+          style="width: 100px; background-color: green; color: white;" 
+          @click="toggleFixedPanel"
+        >upload</v-btn>
       </v-card-title>
       <div class="gallery">
         <div v-for="(image, index) in imagesData" :key="index" class="gallery-item" @click="openPopup(index)">
@@ -31,8 +46,7 @@
         <img :src="currentPhoto" :alt="'Photo ' + (currentIndex + 1)" class="popup-image" />
         <div class="navigation">
           <button @click="prevPhoto" :disabled="currentIndex === 0" class="nav-btn prev-btn">Previous</button>
-          <button @click="nextPhoto" :disabled="currentIndex === imagesData.length - 1"
-            class="nav-btn next-btn">Next</button>
+          <button @click="nextPhoto" :disabled="currentIndex === imagesData.length - 1" class="nav-btn next-btn">Next</button>
         </div>
       </div>
     </v-card>
@@ -49,6 +63,7 @@ export default {
       imagesData: [],
       USER_ROLE: '',
       showPopup: false,
+      showFixedPanel: false, // Control visibility of the fixed panel
       currentIndex: 0,
       image: null,
       imageUrl: '',
@@ -68,6 +83,9 @@ export default {
     this.fetchData();
   },
   methods: {
+    toggleFixedPanel() {
+      this.showFixedPanel = !this.showFixedPanel;
+    },
     async fetchData() {
       try {
         const response = await axios.get('https://octopus-app-n476x.ondigitalocean.app/images');
@@ -189,24 +207,19 @@ export default {
 .fixed-panel {
   position: fixed;
   top: 90px;
-  /* Adjust as needed */
   left: 50%;
-  transform: translateX(-50%);
   z-index: 1000;
+
+  transform: translateX(-50%);
   background-color: white;
-  /* Optional: if you want a background */
   padding: 10px;
-  /* Optional: for spacing around the content */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  /* Optional: for a shadow effect */
 }
 
 .gallery-card {
   width: 1500px;
-  margin-top: 150px;
-  /* Adjust as needed */
+  /* margin-top: 150px; */
   border: 1px solid rgb(2, 4, 5);
-
 }
 
 .gallery {

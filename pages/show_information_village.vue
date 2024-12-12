@@ -1,109 +1,128 @@
 <template>
-    <div>
+      <div class="app-container">
         <v-card class="card-shadow mb-6 mt-1" rounded="lg" style="height: 2500px;">
-            <v-card-title style="background-color:#3766A4;">
+            <v-card-title style="background-color:#008000;">
                 <div style="display:flex;justify-content:space-between;width:100%;">
                     <span style="font-family: 'Times New Roman', Times, serif;" class="white--text">VFMP
                         information</span>
                 </div>
             </v-card-title>
+            <!-- <v-spacer></v-spacer> -->
+            <div style="display: flex">
+                <v-card style="width: 300px;">cs</v-card>
+                <v-card style="width: 900px;">cssc</v-card>
+                <v-card style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div>
+        <div v-if="villageData" style="display: flex; margin-top: 30px;">
+            <span style="margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;width: 130px;margin-right: 10px;margin-left: 15px;margin-right: 15px;margin-left: 15px;" class="back--text">VillageID</span>
+            <v-text-field 
+                style="font-family: 'Times New Roman', Times, serif; font-size: 20px;margin-right: 15px;"
+                class="mr-10 ml-1" 
+                label="VillageID" 
+                dense 
+                flat 
+                solo 
+                background-color="#f5f5f5"
+                v-if="villageData.villageCode" 
+                :value="villageData.villageCode" 
+                readonly
+            ></v-text-field>
+        </div>
+        
+        <div v-if="villageData && villageData.villageId" style="display: flex;">
             <div>
+                <span style="display: block; margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px;width: 130px;margin-right: 10px;margin-left: 15px;" class="back--text">Village Name</span>
+            </div>
+            <div>
+                <v-text-field 
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
+                    class="mr-1 ml-1" 
+                    label="Village Name (En)" 
+                    dense 
+                    flat 
+                    solo 
+                    background-color="#f5f5f5" 
+                    :value="villageData.villageId.villageEn" 
+                    readonly
+                ></v-text-field>
+            </div>
+            <div>
+                <v-text-field 
+                    style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
+                    class="mr-10 ml-1" 
+                    label="Village Name (Lao)" 
+                    dense 
+                    flat 
+                    solo 
+                    background-color="#f5f5f5" 
+                    :value="villageData.villageId.villageLa" 
+                    readonly
+                ></v-text-field>
+            </div>
+        </div>
 
-                <v-card
-                    style="width:100%;margin-top: 10px;margin-left: 7px;margin-right: 7px;height: 390px;display: flex;">
-                    <!-- Village ID, Village Name, District Name, Province Name -->
-                    <!-- Use conditional rendering to check if villageData is not null -->
-                    <div style="width: 600px;margin-right: 50px;font-size: 20px;">
+        <div v-if="villageData" style="display: flex;">
+            <span style="margin-top: 7px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;margin-right: 15px;margin-left: 15px;" class="back--text">X-coordinate</span>
+            <v-text-field 
+                style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
+                class="mr-1 ml-1" 
+                label="X-coordinate" 
+                dense 
+                flat 
+                solo 
+                background-color="#f5f5f5" 
+                v-if="villageData.lat" 
+                :value="villageData.lat" 
+                readonly
+            ></v-text-field>
+        </div>
 
+        <div v-if="villageData" style="display: flex;">
+            <span style="margin-top: 8px; font-family: 'Times New Roman', Times, serif; font-size: 20px; display: block;margin-right: 15px;margin-left: 15px;" class="back--text">Y-coordinate</span>
+            <v-text-field 
+                style="font-family: 'Times New Roman', Times, serif; font-size: 20px;"
+                class="mr-1 ml-1" 
+                label="Y-coordinate" 
+                dense 
+                flat 
+                solo 
+                background-color="#f5f5f5" 
+                v-if="villageData.long" 
+                :value="villageData.long" 
+                readonly
+            ></v-text-field>
+        </div>
+    </div>
 
-                        <!-- <div v-if="villageData"
-                            style="display: flex;margin-left: 10px;margin-right: 5px;margin-top: 30px;">
-                            <div style="width: 50%">
+    <div>
+      <div
+        v-if="villageData"
+        class="image-container"
+        style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px;"
+      >
+        <!-- Add a click handler to show the modal -->
+        <img
+          :src="villageData.image"
+          alt="Village Image"
+          class="village-image"
+          style="cursor: pointer; max-width: 100%; border-radius: 2px;"
+          @click="openImageModal"
+        />
+      </div>
+    </div>
 
-                                <span
-                                    style="display: block; text-align: center; margin-top: 7px; font-family: 'Times New Roman', Times, serif;"
-                                    class="back--text"> VillageID</span>
+    <v-dialog v-model="showImageModal" max-width="100%">
+      <v-card>
+        <v-card-text style="display: flex; justify-content: center; align-items: center;">
+          <img :src="villageData.image" alt="Enlarged Village Image" style="max-width: 100%; max-height: 100%;" />
+        </v-card-text>
+        <!-- <v-card-actions style="justify-content: center;">
+          <v-btn color="red" text @click="showImageModal = false">Close</v-btn>
+        </v-card-actions> -->
+      </v-card>
+    </v-dialog>
+</v-card>
 
-                            </div>
-                            <div style="width:50%">
-
-                                <v-text-field style="font-family: 'Times New Roman', Times, serif;font-size: 20px;width:50%"
-                                class="mr-1 ml-1" label="X-coordinate" dense flat solo background-color="#f5f5f5"
-                                v-if="villageData.villageCode" :value="villageData.villageCode" readonly></v-text-field>
-                            </div>
-                        </div> -->
-
-                        <div v-if="villageData" style="display: flex;margin-left: 10px;margin-right: 5px;margin-top: 30px;">
-                            <span
-                                style="margin-top: 7px;font-family: 'Times New Roman', Times, serif;font-size: 20px;width:50%;display: block; text-align: center;"
-                                class="back--text">VillageID</span>
-
-
-                            <v-text-field style="font-family: 'Times New Roman', Times, serif;font-size: 20px;width:50%"
-                                class="mr-1 ml-1" label="VillageID" dense flat solo background-color="#f5f5f5"
-                                v-if="villageData.villageCode" :value="villageData.villageCode" readonly></v-text-field>
-
-                        </div>
-                        <!-- Add similar conditional blocks for other fields -->
-
-                        <div v-if="villageData && villageData.villageId"
-                            style="display: flex;margin-left: 10px;margin-right: 5px;">
-                            <div style="width: 50%">
-                                <span
-                                    style="display: block; text-align: center; margin-top: 7px; font-family: 'Times New Roman', Times, serif;font-size: 20px;"
-                                    class="back--text">Village Name</span>
-
-                            </div>
-
-                            <div style="width: 25%">
-                                <v-text-field style="font-family: 'Times New Roman', Times, serif;font-size: 20px;"
-                                    class="mr-1 ml-1" label="Village Name (En)" dense flat solo
-                                    background-color="#f5f5f5" :value="villageData.villageId.villageEn"
-                                    readonly></v-text-field>
-                            </div>
-                            <div style="width: 25%">
-                                <v-text-field style="font-family: 'Times New Roman', Times, serif;font-size: 20px;"
-                                    class="mr-1 ml-1" label="Village Name (Lao)" dense flat solo
-                                    background-color="#f5f5f5" :value="villageData.villageId.villageLa"
-                                    readonly></v-text-field>
-                            </div>
-
-                        </div>
-                        <div v-if="villageData" style="display: flex;margin-left: 10px;margin-right: 5px;">
-                            <span
-                                style="margin-top: 7px;font-family: 'Times New Roman', Times, serif;font-size: 20px;width:50%;display: block; text-align: center;"
-                                class="back--text">X-coordinate</span>
-
-
-                            <v-text-field style="font-family: 'Times New Roman', Times, serif;font-size: 20px;width:50%"
-                                class="mr-1 ml-1" label="X-coordinate" dense flat solo background-color="#f5f5f5"
-                                v-if="villageData.lat" :value="villageData.lat" readonly></v-text-field>
-
-                        </div>
-                        <div v-if="villageData" style="display: flex;margin-left: 10px;margin-right: 5px;">
-                            <span
-                                style="margin-top: 8px;font-family: 'Times New Roman', Times, serif;font-size: 20px;width:50%;display: block; text-align: center;"
-                                class="back--text">Y-coordinate</span>
-
-                            <v-text-field
-                                style="font-family: 'Times New Roman', Times, serif;font-size: 20px;width:50%;display: block; text-align: center;"
-                                class="mr-1 ml-1" label="Y-coordinate" dense flat solo background-color="#f5f5f5"
-                                v-if="villageData.long" :value="villageData.long" readonly></v-text-field>
-                        </div>
-                    </div>
-
-                    <div>
-
-                        <div v-if="villageData" class="image-container">
-                            <img :src="villageData.image" alt="Village Image" class="village-image" />
-                            <!-- Other data from the API can be displayed here -->
-                        </div>
-                    </div>
-
-                </v-card>
-                <!-- <v-card style="width: 100%;height: auto;">
-
-                </v-card> -->
             </div>
             <!-- <div
                 style="display: flex; overflow-x: auto; width: 1640px; margin-left: 10px;margin-top: 30px;margin-bottom: 30px;">
@@ -1355,11 +1374,15 @@ export default {
                     description: ''
                 }
             },
+            showImageModal: false, // State to control the visibility of the modal
             villageLPB: null, // Add a data property to store LPB village data
             villagePX: null,  // Add a data property to store PX village data
         };
     },
     methods: {
+        openImageModal() {
+      this.showImageModal = true; // Open the modal when the image is clicked
+    },
         changeColor(color, ref) {
             ref.$el.style.backgroundColor = color;
         },
@@ -1459,14 +1482,26 @@ export default {
 };
 </script>
 <style scoped>
-.image-container {
+.village-image {
+  transition: transform 0.3s ease-in-out;
+}
+.village-image:hover {
+  transform: scale(1.05);
+}
+.app-container {
+  font-family: Arial, sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* .image-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    /* Set flex container to take up 100% width */
+  
     height: 100%;
-}
+} */
 
 .village-image {
     margin-top: 10px;

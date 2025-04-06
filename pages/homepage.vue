@@ -346,7 +346,7 @@ export default {
       start_menu: false,
       end_menu: false,
       loading_processing: false,
-      villageLa: "",
+      villageLa: "null",
 
       user_data_village: [],
 
@@ -355,9 +355,9 @@ export default {
       selectedProvince: null,
       village: "",
       district: "",
-      province: "",
+      
       provinceLa: "",
-      districtLa: "",
+      districtLa: "null",
       selectedDistrictId: null, // Initialize selectedDistrictId
       selectedProvinceLa: null,
       selectedVillageLa: null,
@@ -368,7 +368,7 @@ export default {
       provinceLaList: [], // This will hold the list of provinces fetched from the API
       user_data_districts: [],
       start_date: '',
-      province: null,
+      province: "null",
       selectedSpecies: null,
       selectedHunting: null,
       item: {}, // Define the 'item' object here

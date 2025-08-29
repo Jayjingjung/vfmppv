@@ -507,7 +507,7 @@ export default {
         },
         async fetchData() {
             try {
-                const response = await fetch(`https://octopus-app-n476x.ondigitalocean.app/villageDetail/${806061}`, {
+                const response = await fetch(`https://api.vfmp.dof.maf.gov.la/villageDetail/${806061}`, {
                     method: 'GET', // Adjust the method as needed (GET, POST, etc.)
                     headers: {
                         'Content-Type': 'application/json',
@@ -529,7 +529,7 @@ export default {
         },
         async fetchLPBData() {
             try {
-                const response = await fetch(`https://octopus-app-n476x.ondigitalocean.app/infoVillagesLPB/${806061}`, {
+                const response = await fetch(`https://api.vfmp.dof.maf.gov.la/infoVillagesLPB/${806061}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -551,7 +551,7 @@ export default {
         },
         async fetchPXData() {
             try {
-                const response = await fetch(`https://octopus-app-n476x.ondigitalocean.app/infoVillagesPX/${806061}`, {
+                const response = await fetch(`https://api.vfmp.dof.maf.gov.la/infoVillagesPX/${806061}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

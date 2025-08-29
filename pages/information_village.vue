@@ -1861,7 +1861,7 @@ export default {
                 // Append the image file to the FormData object
                 formData.append('image', this.image);
                 // Send a POST request to the 'uploadFile' endpoint
-                const response = await axios.post('https://octopus-app-n476x.ondigitalocean.app/uploadFile', formData, {
+                const response = await axios.post('https://api.vfmp.dof.maf.gov.la/uploadFile', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
                     },
@@ -1892,7 +1892,7 @@ export default {
 
             try {
                 // Send a POST request to the 'uploadFiles' endpoint
-                const response = await axios.post('https://octopus-app-n476x.ondigitalocean.app/uploadFiles', formData, {
+                const response = await axios.post('https://api.vfmp.dof.maf.gov.la/uploadFiles', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
                     },
@@ -1978,7 +1978,7 @@ export default {
                 };
 
                 const response = await axios.post(
-                    'https://octopus-app-n476x.ondigitalocean.app/villageDetail',
+                    'https://api.vfmp.dof.maf.gov.la/villageDetail',
                     JSON.stringify(data),
                     { headers }
                 );
@@ -2024,7 +2024,7 @@ export default {
         async onGetprovin() {
             try {
                 this.loading_processing = true;
-                const response = await axios.get('https://octopus-app-n476x.ondigitalocean.app/provinces');
+                const response = await axios.get('https://api.vfmp.dof.maf.gov.la/provinces');
                 this.loading_processing = false;
                 if (response?.data?.status === true) {
                     this.user_data_list = response.data.data;
@@ -2053,7 +2053,7 @@ export default {
         async onGetdistricts(provinceId) {
             try {
                 this.loading_processing = true;
-                const response = await axios.get(`https://octopus-app-n476x.ondigitalocean.app/districts?provinceId=${provinceId}`);
+                const response = await axios.get(`https://api.vfmp.dof.maf.gov.la/districts?provinceId=${provinceId}`);
                 this.loading_processing = false;
                 if (response?.data?.status === true) {
                     this.user_data_districts = response.data.data;
@@ -2082,7 +2082,7 @@ export default {
         async onGetvillage(districtId) {
             try {
                 this.loading_processing = true;
-                const response = await axios.get(`https://octopus-app-n476x.ondigitalocean.app/villages?districtId=${districtId}`);
+                const response = await axios.get(`https://api.vfmp.dof.maf.gov.la/villages?districtId=${districtId}`);
                 this.loading_processing = false;
                 if (response?.data?.status === true) {
                     this.user_data_village = response.data.data;

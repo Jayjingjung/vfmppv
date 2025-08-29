@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-card class="card-shadow mb-6 mt-1" rounded="lg" style="height: 100%;">
+    <v-card class="card-shadow mb-6 mt-1" rounded="lg" style="height: auto;">
       <!-- v-select for models -->
-      <div style="display: flex; margin-top: 50px;">
+      <div style="display: flex; margin-top: 50px;margin-left: 15px;margin-right: 15px;">
         <div>
-          <v-select style="width: 200px;" v-model="selectedModel" :items="models" item-text="name" item-value="_id"
+          <v-select style="width: auto;" v-model="selectedModel" :items="models" item-text="name" item-value="_id"
             label="Select a model" outlined></v-select>
         </div>
 
@@ -20,9 +20,9 @@
 
       <!-- Display details of selected model -->
       <v-card v-if="showModalDetails" class="model-details card-center"
-        style="font-size: 20px; text-align: start; width: 100%; margin-top: 50px; margin-left: 7px; margin-bottom: 35px; margin-right: 7px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        style="font-size: 20px; text-align: start; width: auto; margin-top: 50px; margin-left: 7px; margin-bottom: 35px; margin-right: 7px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <v-card-title
-          style="display: flex; justify-content: space-between;background-color:#009f62;width:1660px;color: aliceblue;height: 100px;">
+          style="display: flex; justify-content: space-between;background-color:#009f62;width:100%;color: aliceblue;height: 100px;">
           <div>
             <span>{{ showModalDetails.name }}</span>
           </div>
@@ -115,7 +115,7 @@ export default {
     async onGetmodeID() {
       try {
         this.loading_processing = true;
-        const response = await axios.get('https://octopus-app-n476x.ondigitalocean.app/vfmModels');
+        const response = await axios.get('https://api.vfmp.dof.maf.gov.la/vfmModels');
 
         if (response.data && response.data.status === true) {
           this.loading_processing = false;
@@ -138,7 +138,7 @@ export default {
 
         this.loading_processing = true;
         // Make a GET request to fetch details of the specific model
-        const response = await axios.get(`https://octopus-app-n476x.ondigitalocean.app/vfmModel/${this.selectedModel}`);
+        const response = await axios.get(`https://api.vfmp.dof.maf.gov.la/vfmModel/${this.selectedModel}`);
 
         if (response.data && response.data.status === true) {
           this.loading_processing = false;

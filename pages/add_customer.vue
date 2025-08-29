@@ -13,30 +13,30 @@
 
                         <div class="pt-4" style="width: 100%; display: flex; justify-content: center;">
                             <div style="width: 180px; margin-left: 5px; margin-right: 5px;">
-                                <v-select v-model="province" :items="user_data_list" item-text="provinceLa"
-                                    item-value="_id" label="ເລືອກ ເເຂວງ" @change="onProvinceChange" outlined></v-select>
+                                <v-autocomplete v-model="province" :items="user_data_list" item-text="provinceLa"
+                                    item-value="_id" label="ເລືອກ ເເຂວງ" @change="onProvinceChange" outlined></v-autocomplete>
                             </div>
                             <div style="width: 180px; margin-left: 5px; margin-right: 5px;">
-                                <v-select v-if="user_data_districts.length" v-model="district"
+                                <v-autocomplete v-if="user_data_districts.length" v-model="district"
                                     :items="user_data_districts" item-text="districtLa" item-value="_id"
-                                    label="ເລືອກ ເມືອງ" @change="onDistrictChange" outlined></v-select>
+                                    label="ເລືອກ ເມືອງ" @change="onDistrictChange" outlined></v-autocomplete>
                             </div>
                             <div style="width: 180px; margin-left: 5px; margin-right: 5px;">
-                                <v-select v-if="user_data_village.length" v-model="village" :items="user_data_village"
+                                <v-autocomplete v-if="user_data_village.length" v-model="village" :items="user_data_village"
                                     item-text="villageLa" item-value="_id" label="ເລືອກ ບ້ານ" @change="onVillageChange"
-                                    outlined></v-select>
+                                    outlined></v-autocomplete>
                             </div>
                         </div>
 
                         <v-list class="mt-4 mb-4" @submit.prevent="submitForm" style="width: 300px;">
-                            <v-text-field v-model="userName" label="Username"></v-text-field>
-                            <v-text-field v-model="phoneNumber" label="Phone Number"></v-text-field>
-                            <v-text-field v-model="password" label="Password" type="password"></v-text-field>
-                            <v-text-field v-model="email" label="Email"></v-text-field>
+                            <v-text-field v-model="userName" outlined label="Username"></v-text-field>
+                            <v-text-field v-model="phoneNumber" outlined label="Phone Number"></v-text-field>
+                            <v-text-field v-model="password" outlined label="Password" type="password"></v-text-field>
+                            <v-text-field v-model="email" outlined label="Email"></v-text-field>
                         </v-list>
                         <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-                            <v-select v-model="role" :items="['STAFF', 'ADMIN', 'TRETTER']" label="Role"
-                                style="width: 180px;"></v-select>
+                            <v-autocomplete v-model="role" outlined :items="['STAFF', 'ADMIN', 'TRETTER']" label="Role"
+                                style="width: 180px;"></v-autocomplete>
                             <v-btn @click="submitForm" type="submit" color="primary" class="mt-4">Submit</v-btn>
                         </div>
                     </v-card>
@@ -76,7 +76,7 @@ export default {
         async onGetprovin() {
             try {
                 this.loading_processing = true;
-                const response = await this.$axios.$get('https://octopus-app-n476x.ondigitalocean.app/provinces');
+                const response = await this.$axios.$get('https://api.vfmp.dof.maf.gov.la/provinces');
                 this.loading_processing = false;
                 if (response?.status === true) {
                     this.user_data_list = response.data.map(item => ({
@@ -108,7 +108,7 @@ export default {
         async onGetdistricts(provinceId) {
             try {
                 this.loading_processing = true;
-                const response = await this.$axios.$get(`https://octopus-app-n476x.ondigitalocean.app/districts?provinceId=${provinceId}`);
+                const response = await this.$axios.$get(`https://api.vfmp.dof.maf.gov.la/districts?provinceId=${provinceId}`);
                 this.loading_processing = false;
                 if (response?.status === true) {
                     this.user_data_districts = response.data.map(item => ({
@@ -140,7 +140,7 @@ export default {
         async onGetvillage(districtId) {
             try {
                 this.loading_processing = true;
-                const response = await this.$axios.$get(`https://octopus-app-n476x.ondigitalocean.app/villages?districtId=${districtId}`);
+                const response = await this.$axios.$get(`https://api.vfmp.dof.maf.gov.la/villages?districtId=${districtId}`);
                 this.loading_processing = false;
                 if (response?.status === true) {
                     this.user_data_village = response.data.map(item => ({
@@ -180,7 +180,7 @@ export default {
             console.log('Village changed:', this.village);
         },
         async submitForm() {
-            const apiEndpoint = 'https://octopus-app-n476x.ondigitalocean.app/user/create';
+            const apiEndpoint = 'https://api.vfmp.dof.maf.gov.la/user/create';
 
             try {
                 // Retrieve the token from local storage

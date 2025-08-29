@@ -53,7 +53,7 @@
               password: this.password,
             }
             this.loadingLogin = true
-            await this.$axios.$post('https://octopus-app-n476x.ondigitalocean.app/adminLogin', data)
+            await this.$axios.$post('https://api.vfmp.dof.maf.gov.la/adminLogin', data)
               .then((response) => {
                 console.log(response);  // Log the server response
                 if (response?.status == true) {
